@@ -608,8 +608,7 @@ function saveLeadAndPay(){
   if(!validateEmail()) return;
   const name=document.getElementById('input-name').value||'Empresario';
   const email=document.getElementById('input-email').value.trim();
-  const{sc}=computeResults();
-  const state={sc:sc,r:selectedRevenue,c:selectedClients,cur:selectedCurrency.code,n:name,email:email};
+  const state={a:answers,r:selectedRevenue,c:selectedClients,cur:selectedCurrency.code,n:name,email:email};
   try{localStorage.setItem('diagState',JSON.stringify(state));}catch(e){}
   window.open(HOTMART_URL,'_blank');
 }
@@ -855,18 +854,13 @@ renderRevenueOptions();
   if(urlP.get('paid')==='1'){
     let saved=null;
     try{saved=JSON.parse(localStorage.getItem('diagState'));}catch(e){}
-    if(saved&&saved.sc){
+    if(saved&&saved.a){
       selectedRevenue=saved.r||3000;
       selectedClients=saved.c||13;
       selectedCurrency=currencies[saved.cur]||currencies.USD;
       userName=saved.n||'Empresario';
       freeMode=false;
-      answers=questions.map((q)=>{
-        const target=saved.sc[q.section];
-        let best=0,bestDiff=999;
-        q.options.forEach((o,j)=>{if(Math.abs(o.score-target)<bestDiff){bestDiff=Math.abs(o.score-target);best=j;}});
-        return best;
-      });
+      answers=saved.a;
       try{localStorage.removeItem('diagState');}catch(e){}
       history.replaceState({},'',window.location.pathname);
       show('screen-results');
