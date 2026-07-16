@@ -54,7 +54,7 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 .ctx-option{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center;}
 .ctx-option:hover{border-color:var(--accent);background:rgba(59,130,246,.08);}
 .ctx-option.selected{border-color:var(--accent);background:rgba(59,130,246,.15);}
-.ctx-option-label{font-size:.93rem;font-weight:500;}
+.ctx-option-label{font-size:.93rem;font-weight:500;}.ctx-option-sub{font-size:.78rem;color:#64748b;margin-top:2px;}
 .ctx-option-sub{font-size:.78rem;color:var(--muted);}
 .ctx-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:all .2s;}
 .ctx-option.selected .ctx-check{background:var(--accent);border-color:var(--accent);}
@@ -82,7 +82,7 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 #screen-email{background:radial-gradient(ellipse at 50% 100%,#1a2a4a 0%,var(--bg) 60%);}
 .email-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:48px;text-align:center;}
 .email-card h2{font-size:1.8rem;font-weight:800;margin-bottom:12px;}
-.teaser-number{font-size:3rem;font-weight:900;color:var(--red);margin:24px 0;}
+.teaser-number{font-size:3rem;font-weight:900;color:#10b981;margin:24px 0;}
 .teaser-label{font-size:1rem;color:var(--muted);}
 .input-group{display:flex;flex-direction:column;gap:12px;margin:24px 0;}
 .input-field{background:var(--card);border:1px solid var(--border);color:var(--text);padding:14px 18px;border-radius:10px;font-size:1rem;outline:none;transition:border-color .2s;}
@@ -135,11 +135,11 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 .score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2.2rem;font-weight:900;}
 .score-label{font-size:.85rem;color:var(--muted);margin-bottom:4px;}
 .score-level{font-size:1.1rem;font-weight:700;}
-.loss-card{background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(239,68,68,.05));border:1px solid rgba(239,68,68,.3);border-radius:20px;padding:32px;text-align:center;}
-.loss-amount{font-size:2.4rem;font-weight:900;color:var(--red);line-height:1;margin:12px 0;}
+.loss-card{background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(16,185,129,.05));border:1px solid rgba(16,185,129,.3);border-radius:20px;padding:32px;text-align:center;}
+.loss-amount{font-size:2.4rem;font-weight:900;color:#10b981;line-height:1;margin:12px 0;}
 .loss-label{font-size:.85rem;color:var(--muted);}
-.loss-year{font-size:.9rem;color:#fca5a5;margin-top:8px;}
-.loss-note{font-size:.75rem;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid rgba(239,68,68,.2);line-height:1.5;}
+.loss-year{font-size:.9rem;color:#6ee7b7;margin-top:8px;}
+.loss-note{font-size:.75rem;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid rgba(16,185,129,.2);line-height:1.5;}
 .radar-section{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:32px;}
 .radar-section h3{font-size:1.1rem;font-weight:700;margin-bottom:24px;text-align:center;}
 .radar-wrap{max-width:380px;margin:0 auto;}
@@ -160,6 +160,19 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 .benchmark-you{height:100%;border-radius:100px;background:var(--accent);}
 .benchmark-avg{position:absolute;top:-3px;width:2px;height:14px;background:var(--gold);border-radius:2px;}
 .benchmark-legend{display:flex;gap:20px;font-size:.78rem;color:var(--muted);margin-bottom:16px;}
+.industry-section{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:32px;display:none;}
+.industry-section.visible{display:block;}
+.industry-section h3{font-size:1rem;font-weight:700;margin-bottom:6px;text-align:center;}
+.industry-subtitle{font-size:.82rem;color:var(--muted);text-align:center;margin-bottom:20px;}
+.industry-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.industry-label{font-size:.82rem;width:130px;flex-shrink:0;color:var(--muted);}
+.industry-track{flex:1;height:10px;background:var(--border);border-radius:100px;position:relative;}
+.industry-bar-you{height:100%;border-radius:100px;background:var(--accent);transition:width .8s ease;}
+.industry-bar-ind{position:absolute;top:-4px;width:3px;height:18px;background:#f59e0b;border-radius:2px;}
+.industry-bar-mkt{position:absolute;top:-2px;width:2px;height:14px;background:#475569;border-radius:2px;}
+.industry-delta{font-size:.8rem;width:52px;text-align:right;flex-shrink:0;font-weight:600;}
+.industry-insight{background:rgba(59,130,246,.07);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 16px;margin-top:16px;font-size:.87rem;line-height:1.6;color:var(--muted);}
+.industry-legend{display:flex;gap:16px;font-size:.77rem;color:var(--muted);margin-bottom:16px;flex-wrap:wrap;}
 .legend-dot{width:10px;height:10px;border-radius:2px;}
 .plan-section{margin-bottom:32px;}
 .plan-section h3{font-size:1.3rem;font-weight:800;margin-bottom:20px;text-align:center;}
@@ -228,14 +241,14 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 <div id="screen-intro" class="screen active">
   <div class="container">
     <div class="badge" style="margin-left:auto;margin-right:auto;display:flex;width:fit-content;">Diagnostico Empresarial con IA</div>
-    <h1>Descubre cuanto dinero esta<br><span>perdiendo tu negocio</span><br>cada mes</h1>
+    <h1>Descubre cuanto dinero puede<br><span>recuperar tu negocio</span><br>cada mes</h1>
     <p class="subtitle">En menos de 5 minutos, analizamos 4 areas criticas de tu empresa y te entregamos un diagnostico personalizado con numeros reales de tu negocio.</p>
     <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:14px;padding:20px 24px;margin-bottom:32px;text-align:center;">
       <p style="font-size:.92rem;color:var(--muted);line-height:1.7;max-width:580px;margin:0 auto;">Anos de experiencia en Transformacion de Negocios, condensados en 15 minutos. Lo que antes era exclusivo de grandes corporaciones con presupuestos de consultoria de 6 cifras, hoy esta al alcance de cualquier PYME o emprendedor de LATAM &mdash; con una inversion minima y un retorno que puedes medir desde el primer mes.</p>
     </div>
     <div class="stats-row">
       <div class="stat"><div class="stat-num">4</div><div class="stat-label">Areas analizadas</div></div>
-      <div class="stat"><div class="stat-num">14</div><div class="stat-label">Preguntas clave</div></div>
+      <div class="stat"><div class="stat-num">12</div><div class="stat-label">Preguntas clave</div></div>
       <div class="stat"><div class="stat-num">5 min</div><div class="stat-label">Tiempo estimado</div></div>
     </div>
     <div class="currency-selector">
@@ -276,6 +289,17 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
         </div>
       </div>
 
+      <div class="ctx-block">
+        <div class="ctx-label">¿Que tipo de negocio tienes?</div>
+        <div class="ctx-options" id="biztype-options">
+          <div class="ctx-option" onclick="selectBizType('servicios',this)"><div class="ctx-option-label">Servicios Profesionales</div><div class="ctx-option-sub">Consultor, coach, freelancer, asesor</div><div class="ctx-check"></div></div>
+          <div class="ctx-option" onclick="selectBizType('comercio',this)"><div class="ctx-option-label">Comercio / Retail</div><div class="ctx-option-sub">Tienda fisica o en linea de productos</div><div class="ctx-check"></div></div>
+          <div class="ctx-option" onclick="selectBizType('restaurante',this)"><div class="ctx-option-label">Restaurante / Food</div><div class="ctx-option-sub">Cafeteria, restaurante, catering, pasteleria</div><div class="ctx-check"></div></div>
+          <div class="ctx-option" onclick="selectBizType('agencia',this)"><div class="ctx-option-label">Agencia / Consultoria</div><div class="ctx-option-sub">Marketing, diseno, desarrollo, gestion</div><div class="ctx-check"></div></div>
+          <div class="ctx-option" onclick="selectBizType('digital',this)"><div class="ctx-option-label">Digital / E-commerce</div><div class="ctx-option-sub">Infoproductos, SaaS, tienda online</div><div class="ctx-check"></div></div>
+        </div>
+      </div>
+
       <button class="btn-primary" id="ctx-continue" onclick="startQuestions()" disabled>Continuar con el diagnostico --></button>
     </div>
   </div>
@@ -307,9 +331,9 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
     <div class="email-card">
       <div style="font-size:2.5rem;margin-bottom:16px">🔍</div>
       <h2>Tu diagnostico esta listo</h2>
-      <p style="color:var(--muted);margin-bottom:8px">Calculado sobre tu facturacion declarada. Perdida mensual estimada:</p>
+      <p style="color:var(--muted);margin-bottom:8px">Calculado sobre tu facturacion declarada. Potencial de recuperacion mensual:</p>
       <div class="teaser-number" id="teaser-loss">---</div>
-      <div class="teaser-label">perdida mensual estimada</div>
+      <div class="teaser-label">potencial de recuperacion mensual</div>
       <p style="margin:20px 0 6px;color:var(--muted);font-size:.9rem">Ingresa tu nombre y email para ver tu puntaje por area de forma gratuita.</p>
       <div class="input-group">
         <input class="input-field" type="text" id="input-name" placeholder="Tu nombre" />
@@ -330,7 +354,7 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
         </div>
         <div style="font-size:.75rem;color:var(--muted);margin-bottom:16px;">Acceso inmediato &middot; Pago unico &middot; Sin suscripcion</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;font-size:.78rem;color:var(--muted);">
-          <div>&#10003; Perdidas por area con montos exactos</div>
+          <div>&#10003; Potencial de recuperacion por area</div>
           <div>&#10003; Plan de 3 acciones priorizadas</div>
           <div>&#10003; Hoja de ruta 90 dias</div>
           <div>&#10003; Proyeccion ROI a 6 meses</div>
@@ -338,7 +362,7 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
         <a id="hotmart-link" href="https://pay.hotmart.com/J106755421R" target="_blank" style="text-decoration:none;display:block">
           <button class="btn-primary" style="width:100%;justify-content:center;" onclick="saveLeadAndPay()">Acceder al informe completo &rarr; $37 USD</button>
         </a>
-        <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:10px;">&#128274; Pago seguro via Hotmart &middot; Garantia de satisfaccion</div>
+        <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:10px;">&#128274; Pago seguro via Hotmart &middot; <strong style="color:var(--text)">Garantia de 7 dias</strong> &mdash; si no encuentras valor, te devolvemos el dinero sin preguntas</div>
       </div>
       <!-- OPCION GRATIS -->
       <button class="btn-secondary" style="width:100%;justify-content:center;margin-bottom:8px" onclick="showResults(true)">Ver solo mi puntaje por area (gratis)</button>
@@ -380,9 +404,9 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
         <div class="score-level" id="score-level">---</div>
       </div>
       <div class="loss-card">
-        <div class="loss-label">Estas perdiendo aproximadamente</div>
+        <div class="loss-label">Tu negocio puede recuperar hasta</div>
         <div class="loss-amount" id="loss-display">---</div>
-        <div class="loss-label">al mes por ineficiencias identificadas</div>
+        <div class="loss-label">al mes optimizando las areas identificadas</div>
         <div class="loss-year" id="loss-year-display"></div>
         <div class="loss-note" id="loss-note"></div>
       </div>
@@ -399,6 +423,17 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
         <div style="display:flex;align-items:center;gap:6px"><div class="legend-dot" style="background:var(--gold)"></div>Promedio del mercado</div>
       </div>
       <div id="benchmark-rows"></div>
+    </div>
+    <div class="industry-section fade-up delay-3" id="industry-section">
+      <h3>Diagnostico por Industria</h3>
+      <div class="industry-subtitle" id="industry-subtitle"></div>
+      <div class="industry-legend">
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:50%;background:var(--accent)"></div>Tu negocio</div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:3px;height:14px;background:#f59e0b;border-radius:2px"></div>Promedio de tu industria</div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:2px;height:12px;background:#475569;border-radius:2px"></div>Promedio general del mercado</div>
+      </div>
+      <div id="industry-rows"></div>
+      <div class="industry-insight" id="industry-insight"></div>
     </div>
     <div class="plan-section fade-up delay-3">
       <h3 style="text-align:center;margin-bottom:20px;">Tu Plan de Accion Priorizado</h3>
@@ -429,14 +464,14 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
     <div id="cta-section-free" class="cta-section fade-up delay-4" style="display:none">
       <div style="font-size:2rem;margin-bottom:10px">🔒</div>
       <h3>Tu plan de accion esta bloqueado</h3>
-      <p style="margin-bottom:6px">Ya sabes cuanto estas perdiendo. El informe completo te dice exactamente <strong style="color:var(--text)">donde, cuanto y como recuperarlo</strong> &mdash; con un plan priorizado por impacto economico real.</p>
+      <p style="margin-bottom:6px">Ya tienes tu potencial de recuperacion. El informe completo te dice exactamente <strong style="color:var(--text)">donde esta la oportunidad y como capturarla</strong> &mdash; con un plan priorizado por impacto economico real.</p>
       <p style="font-size:.85rem;color:var(--muted);margin-bottom:20px">Lo que un consultor cobra por una sesion de diagnostico: <strong style="color:var(--text)">$247 USD</strong>. Lo que pagas hoy en precio de lanzamiento:</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px;">
         <div class="price-badge"><span>$247</span> $37 USD</div>
       </div>
       <div style="font-size:.75rem;color:var(--muted);margin-bottom:20px;">Precio de lanzamiento &middot; Acceso inmediato &middot; Pago unico</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:22px;font-size:.8rem;color:var(--muted);text-align:left;max-width:380px;margin-left:auto;margin-right:auto;">
-        <div>&#10003; Perdidas exactas por area</div>
+        <div>&#10003; Potencial de mejora por area</div>
         <div>&#10003; Plan de accion priorizado</div>
         <div>&#10003; Hoja de ruta 90 dias</div>
         <div>&#10003; Proyeccion ROI 6 meses</div>
@@ -447,14 +482,17 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
         </a>
         <button class="btn-secondary" onclick="window.print()">Imprimir resumen gratuito</button>
       </div>
-      <div style="font-size:.72rem;color:var(--muted);margin-top:12px;">&#128274; Pago seguro via Hotmart &middot; Garantia de satisfaccion</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-top:12px;">&#128274; Pago seguro via Hotmart &middot; <strong style="color:var(--text)">Garantia de 7 dias</strong> &mdash; si no encuentras valor, te devolvemos el dinero</div>
     </div>
     <div id="cta-section-paid" class="cta-section fade-up delay-4" style="display:none">
-      <h3>Convierte este diagnostico en resultados reales</h3>
-      <p>Con Focus &mdash; Inteligencia de Rentabilidad, implementas cada mejora con sistema, seguimiento y acompanamiento estrategico.</p>
+      <h3>Comparte tu diagnostico</h3>
+      <p style="color:var(--muted);margin-bottom:20px;">Guarda tu link personalizado o comparte los resultados con tu equipo o contador. El link reconstruye tu reporte exacto.</p>
+      <div class="share-box" style="max-width:560px;margin:0 auto 20px;">
+        <div class="share-url" id="share-url-paid">Generando link...</div>
+        <button class="btn-copy" onclick="copyShareLinkPaid()">Copiar link</button>
+      </div>
       <div class="cta-buttons">
-        <button class="btn-primary" onclick="alert('Gracias! Pronto nos ponemos en contacto contigo.')">Quiero acompanamiento con Focus</button>
-        <button class="btn-secondary" onclick="window.print()">Imprimir reporte</button>
+        <button class="btn-secondary" onclick="window.print()">Descargar PDF</button>
       </div>
     </div>
   </div>
@@ -474,7 +512,7 @@ const revenueRanges=[
   {label:'Entre',   val:30000, usdMin:15000,usdMax:50000},
   {label:'Mas de',  val:75000, usdMin:50000}
 ];
-let selectedRevenue=null, selectedClients=null;
+let selectedRevenue=null, selectedClients=null, selectedBusinessType=null;
 
 function renderRevenueOptions(){
   const c=selectedCurrency;
@@ -501,7 +539,14 @@ function selectClients(idx,el){
   el.classList.add('selected');
   checkCtxReady();
 }
-function checkCtxReady(){document.getElementById('ctx-continue').disabled=!(selectedRevenue&&selectedClients);}
+function checkCtxReady(){document.getElementById('ctx-continue').disabled=!(selectedRevenue&&selectedClients&&selectedBusinessType);}
+
+function selectBizType(type,el){
+  selectedBusinessType=type;
+  document.querySelectorAll('#biztype-options .ctx-option').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  checkCtxReady();
+}
 
 // SECTIONS & QUESTIONS
 const sections=[
@@ -590,10 +635,6 @@ function validateEmail(){
   err.style.display=ok?'none':'block';
   return ok;
 }
-function saveLeadAndPay(){
-  if(!validateEmail()) return false;
-  userName=document.getElementById('input-name').value||'Empresario';
-}
 function sendDiagnosticEmail(shareURL){
   const email=document.getElementById('input-email').value.trim();
   emailjs.send('service_vfxahim','template_0l97vgd',{
@@ -608,7 +649,7 @@ function saveLeadAndPay(){
   if(!validateEmail()) return;
   const name=document.getElementById('input-name').value||'Empresario';
   const email=document.getElementById('input-email').value.trim();
-  const state={a:answers,r:selectedRevenue,c:selectedClients,cur:selectedCurrency.code,n:name,email:email};
+  const state={a:answers,r:selectedRevenue,c:selectedClients,cur:selectedCurrency.code,n:name,email:email,bt:selectedBusinessType};
   try{localStorage.setItem('diagState',JSON.stringify(state));}catch(e){}
   window.open(HOTMART_URL,'_blank');
 }
@@ -638,7 +679,15 @@ function generateShareURL(){
 function copyShareLink(){
   const url=document.getElementById('share-url').textContent;
   navigator.clipboard.writeText(url).then(()=>{
-    const btn=document.querySelector('.btn-copy');
+    const btn=document.querySelector('#share-box .btn-copy');
+    btn.textContent='Copiado!';
+    setTimeout(()=>btn.textContent='Copiar link',2000);
+  });
+}
+function copyShareLinkPaid(){
+  const url=document.getElementById('share-url-paid').textContent;
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn=document.querySelector('#cta-section-paid .btn-copy');
     btn.textContent='Copiado!';
     setTimeout(()=>btn.textContent='Copiar link',2000);
   });
@@ -684,10 +733,20 @@ function buildResults(){
   // CARTA
   const wi=sc.indexOf(Math.min(...sc)),bi=sc.indexOf(Math.max(...sc));
   const revLabel=fmt(selectedRevenue)+'/mes';
+  const bizCtx={
+    servicios:{intro:'Para un negocio de servicios profesionales como el tuyo,',priceCtx:'la fijacion de precios basada en valor —no en horas— es el mayor palanca de rentabilidad.',retCtx:'la retencion de clientes y los ingresos recurrentes son la diferencia entre crecer y sobrevivir.',opCtx:'cada hora que no se factura es ingreso perdido para siempre.',autoCtx:'las herramientas de automatizacion liberan tiempo que se convierte directamente en mas ingresos.'},
+    comercio:{intro:'Para un negocio de comercio o retail como el tuyo,',priceCtx:'el control de margenes por producto y la gestion del inventario determinan si el negocio es rentable o solo activo.',retCtx:'el ticket promedio y la frecuencia de compra son los motores de crecimiento mas subestimados.',opCtx:'los procesos de compra, recepcion y despacho concentran la mayor parte de las perdidas ocultas.',autoCtx:'la digitalizacion del punto de venta y el seguimiento de stock son pasos criticos para escalar.'},
+    restaurante:{intro:'Para un negocio de restaurante o food service como el tuyo,',priceCtx:'el costo de materia prima y el control de merma son los factores que mas impactan tu margen real.',retCtx:'la experiencia del cliente y la frecuencia de regreso determinan tu capacidad de facturar de forma sostenida.',opCtx:'los procesos de cocina, servicio y cierre de caja son donde mas se pierden tiempo y dinero.',autoCtx:'la digitalizacion del pedido y el control de inventario en tiempo real pueden transformar la rentabilidad del negocio.'},
+    agencia:{intro:'Para una agencia o consultoria como la tuya,',priceCtx:'el precio por proyecto vs precio por valor entregado es la diferencia entre crecer y quedar atrapado en el intercambio horas-dinero.',retCtx:'la retencion de cuentas y la expansion de servicios dentro del mismo cliente es tu palanca mas eficiente.',opCtx:'la entrega de proyectos y el onboarding de clientes concentran la mayoria de las ineficiencias.',autoCtx:'la estandarizacion de procesos y uso de IA puede duplicar tu capacidad sin contratar.'},
+    digital:{intro:'Para un negocio digital o e-commerce como el tuyo,',priceCtx:'la arquitectura de precios, los bundles y los modelos de suscripcion definen el techo de tu rentabilidad.',retCtx:'el LTV y la tasa de churn son las metricas que mas impactan tu rentabilidad a largo plazo.',opCtx:'los flujos de fulfillment, soporte y entrega digital son donde se acumulan los cuellos de botella mas costosos.',autoCtx:'la automatizacion de marketing, onboarding y soporte es fundamental para escalar sin multiplicar costos fijos.'}
+  };
+  const biz=bizCtx[selectedBusinessType]||bizCtx.servicios;
+  const weakLabel=sections[wi].id;
+  const bizInsight=weakLabel==='finanzas'?biz.priceCtx:weakLabel==='operaciones'?biz.opCtx:weakLabel==='clientes'?biz.retCtx:biz.autoCtx;
   document.getElementById('carta-text').innerHTML=
-    '<p>Hola <strong>'+userName+'</strong>, basandonos en tu facturacion mensual de aproximadamente <strong>'+revLabel+'</strong> y los resultados de tu evaluacion, hemos calculado el impacto economico real de las ineficiencias identificadas en tu negocio.</p>'+
+    '<p>Hola <strong>'+userName+'</strong>, '+biz.intro+' Con una facturacion mensual aproximada de <strong>'+revLabel+'</strong>, hemos calculado el potencial de recuperacion real basado en los resultados de tu evaluacion.</p>'+
     '<p>Tu fortaleza mas clara esta en <strong>'+sections[bi].label+'</strong>, con un puntaje de '+Math.max(...sc)+'/100. Eso significa que ya tienes una base solida sobre la cual construir.</p>'+
-    '<p>Sin embargo, el area que mas te esta costando dinero hoy es <strong>'+sections[wi].label+'</strong>, con un score de '+Math.min(...sc)+'/100. Los benchmarks sectoriales indican que esta brecha representa aproximadamente <strong>'+fmt(lpa[wi])+'</strong> de perdida mensual en tu nivel de facturacion.</p>'+
+    '<p>Sin embargo, el area que mas te esta costando dinero hoy es <strong>'+sections[wi].label+'</strong>, con un score de '+Math.min(...sc)+'/100. Para tu tipo de negocio, '+bizInsight+' Los benchmarks sectoriales indican que esta brecha representa aproximadamente <strong>'+fmt(lpa[wi])+'</strong> de potencial de recuperacion mensual en tu nivel de facturacion.</p>'+
     '<p>El plan que encontraras a continuacion esta priorizado por impacto economico. Sigue el orden propuesto para maximizar la recuperacion en el menor tiempo posible.</p>';
 
   document.getElementById('results-intro-text').textContent=phase.label+' - Score global: '+overall+'/100';
@@ -711,8 +770,8 @@ function buildResults(){
     document.getElementById('loss-note').textContent='';
   }else{
     document.getElementById('loss-display').textContent=fmt(total);
-    document.getElementById('loss-year-display').textContent=fmt(total*12)+' de oportunidad anual sin aprovechar';
-    document.getElementById('loss-note').textContent='Calculado sobre tu facturacion declarada de '+fmt(selectedRevenue)+'/mes aplicando porcentajes de ineficiencia por area segun benchmarks sectoriales.';
+    document.getElementById('loss-year-display').textContent=fmt(total*12)+' de oportunidad de recuperacion anual';
+    document.getElementById('loss-note').textContent='Estimado sobre tu facturacion de '+fmt(selectedRevenue)+'/mes. Este numero refleja el potencial de mejora si se actua sobre las brechas identificadas frente a benchmarks sectoriales (McKinsey 2023, Bain 2022, Deloitte 2023).';
   }
 
   // AREAS
@@ -747,6 +806,47 @@ function buildResults(){
   sorted.forEach(([ai2,s])=>{if(chosen.length>=3)return;const x=acts.find(a=>a.a===ai2&&s<a.th&&!chosen.includes(a));if(x)chosen.push(x);});
   acts.forEach(a=>{if(chosen.length<3&&!chosen.includes(a))chosen.push(a);});
   document.getElementById('action-plan').innerHTML=chosen.slice(0,3).map((a,i)=>'<div class="action-card"><div class="action-num">'+(i+1)+'</div><div class="action-body"><h4>'+a.t+'</h4><p>'+a.d+'</p><div class="action-impact">'+a.imp+'</div></div></div>').join('');
+
+  // DIAGNOSTICO POR INDUSTRIA
+  if(!freeMode){
+    const indBench={
+      servicios:{label:'Servicios Profesionales',scores:[58,52,65,38],insight:'Los negocios de servicios profesionales en LATAM suelen tener buena relacion con clientes pero luchan con precios y automatizacion. Su mayor palanca de crecimiento es el pricing basado en valor y la sistematizacion del proceso de venta.'},
+      comercio:{label:'Comercio / Retail',scores:[65,60,52,45],insight:'El comercio en LATAM ha avanzado en control de costos y operaciones, pero la retencion de clientes y el marketing de fidelizacion siguen siendo los puntos debiles mas frecuentes. La digitalizacion del punto de venta marca la diferencia competitiva.'},
+      restaurante:{label:'Restaurante / Food',scores:[55,63,60,35],insight:'Los restaurantes tienen procesos operativos mas estructurados que otros sectores, pero el control de costo de materia prima y la automatizacion siguen siendo criticos. La experiencia del cliente es el activo mas valioso del negocio.'},
+      agencia:{label:'Agencia / Consultoria',scores:[60,50,68,48],insight:'Las agencias lideran en retencion de clientes pero tienen los procesos internos mas variables. La estandarizacion de entrega y el modelo de precios basado en resultados son las palancas con mayor impacto directo en rentabilidad.'},
+      digital:{label:'Digital / E-commerce',scores:[63,58,55,62],insight:'Los negocios digitales son los mas avanzados en automatizacion, pero frecuentemente descuidan la retencion (churn) y el lifetime value del cliente. Optimizar la secuencia post-compra puede duplicar la rentabilidad sin aumentar la inversion en adquisicion.'}
+    };
+    const bt=selectedBusinessType||'servicios';
+    const ib=indBench[bt]||indBench.servicios;
+    document.getElementById('industry-subtitle').textContent='Como te comparas con el promedio de '+ib.label+' en LATAM';
+    document.getElementById('industry-section').classList.add('visible');
+    document.getElementById('industry-rows').innerHTML=sections.map((sec,i)=>{
+      const you=sc[i], ind=ib.scores[i], mkt=sec.market;
+      const delta=you-ind;
+      const color=delta>=0?'#10b981':'#f97316';
+      return '<div class="industry-row">'+
+        '<div class="industry-label">'+sec.icon+' '+sec.label.split(' ')[0]+'</div>'+
+        '<div class="industry-track">'+
+          '<div class="industry-bar-you" style="width:'+you+'%"></div>'+
+          '<div class="industry-bar-ind" style="left:'+ind+'%"></div>'+
+          '<div class="industry-bar-mkt" style="left:'+mkt+'%"></div>'+
+        '</div>'+
+        '<div class="industry-delta" style="color:'+color+'">'+(delta>=0?'+':'')+delta+'pts</div>'+
+      '</div>';
+    }).join('');
+    // Insight personalizado: donde esta por encima / debajo de su industria
+    const aboveInd=sections.filter((_,i)=>sc[i]>=ib.scores[i]).map(s=>s.label.split(' ')[0]);
+    const belowInd=sections.filter((_,i)=>sc[i]<ib.scores[i]).map(s=>s.label.split(' ')[0]);
+    let insightText=ib.insight;
+    if(aboveInd.length>0&&belowInd.length>0){
+      insightText='<strong>Por encima de tu industria:</strong> '+aboveInd.join(', ')+'. <strong>Por debajo:</strong> '+belowInd.join(', ')+'. '+ib.insight;
+    } else if(aboveInd.length===4){
+      insightText='<strong>Superas el promedio de tu industria en las 4 areas.</strong> '+ib.insight;
+    } else {
+      insightText='<strong>Por debajo del promedio en todas las areas.</strong> '+ib.insight;
+    }
+    document.getElementById('industry-insight').innerHTML=insightText;
+  }
 
   // HOJA DE RUTA
   // HOJA DE RUTA PERSONALIZADA con 3 pasos por tarea
@@ -827,7 +927,7 @@ function buildResults(){
   const apSection=document.getElementById('action-plan');
   if(freeMode && apSection){
     const parent=apSection.parentElement;
-    parent.innerHTML='<div class="locked-wrap">'+parent.innerHTML+'<div class="locked-overlay"><div style="font-size:2rem;margin-bottom:10px">&#128274;</div><h4>Plan de accion personalizado</h4><p>3 acciones priorizadas por impacto economico, basadas en tus areas de mayor perdida.</p><a href="'+HOTMART_URL+'" target="_blank" style="text-decoration:none"><button class="btn-primary">Desbloquear informe &rarr; $37 USD</button></a></div></div>';
+    parent.innerHTML='<div class="locked-wrap">'+parent.innerHTML+'<div class="locked-overlay"><div style="font-size:2rem;margin-bottom:10px">&#128274;</div><h4>Plan de accion personalizado</h4><p>3 acciones priorizadas por impacto economico, basadas en tus areas de mayor oportunidad.</p><a href="'+HOTMART_URL+'" target="_blank" style="text-decoration:none"><button class="btn-primary">Desbloquear informe &rarr; $37 USD</button></a></div></div>';
   }
 
   // ROADMAP
@@ -844,7 +944,10 @@ function buildResults(){
   // SHARE BOX
   const shareBox=document.getElementById('share-box');
   shareBox.style.display='block';
-  document.getElementById('share-url').textContent=generateShareURL();
+  const generatedURL=generateShareURL();
+  document.getElementById('share-url').textContent=generatedURL;
+  const paidUrlEl=document.getElementById('share-url-paid');
+  if(paidUrlEl) paidUrlEl.textContent=generatedURL;
 }
 
 // Init
@@ -857,6 +960,7 @@ renderRevenueOptions();
     if(saved&&saved.a){
       selectedRevenue=saved.r||3000;
       selectedClients=saved.c||13;
+      selectedBusinessType=saved.bt||'servicios';
       selectedCurrency=currencies[saved.cur]||currencies.USD;
       userName=saved.n||'Empresario';
       freeMode=false;
