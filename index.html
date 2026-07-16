@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagnostico de Rentabilidad Empresarial</title>
+<title>Radar de Rentabilidad — FOCUS</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init('-i5RxyMvUzyp2FgAB');</script>
@@ -232,6 +232,18 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 .delay-2{animation-delay:.2s;opacity:0;}
 .delay-3{animation-delay:.3s;opacity:0;}
 .delay-4{animation-delay:.4s;opacity:0;}
+
+/* ── FOCUS UPSELL ───────────────────────────────── */
+.focus-upsell{background:#1A2E5A;border-radius:16px;padding:36px 28px;margin-top:32px;text-align:center;color:#fff;}
+.focus-upsell-header{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:22px;}
+.focus-upsell h3{font-size:1.2rem;font-weight:700;margin-bottom:12px;line-height:1.45;color:#fff;}
+.focus-upsell p{font-size:.88rem;color:rgba(255,255,255,.7);max-width:500px;margin:0 auto 20px;line-height:1.65;}
+.focus-features{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;max-width:400px;margin:0 auto 24px;text-align:left;}
+.focus-features div{font-size:.82rem;color:rgba(255,255,255,.85);}
+.focus-features span{color:#27AE7A;margin-right:5px;}
+.btn-focus{background:#2A7DD4;color:#fff;border:none;border-radius:8px;padding:11px 28px;font-size:.95rem;font-weight:600;cursor:pointer;letter-spacing:.02em;}
+.btn-focus:hover{background:#1A6BBC;}
+.focus-tagline-sub{font-size:.65rem;color:rgba(255,255,255,.3);margin-top:14px;letter-spacing:3px;text-transform:uppercase;}
 </style>
 </head>
 <body>
@@ -240,7 +252,7 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 <!-- INTRO -->
 <div id="screen-intro" class="screen active">
   <div class="container">
-    <div class="badge" style="margin-left:auto;margin-right:auto;display:flex;width:fit-content;">Diagnostico Empresarial con IA</div>
+    <div class="badge" style="margin-left:auto;margin-right:auto;display:flex;width:fit-content;">Radar de Rentabilidad</div>
     <h1>Descubre cuanto dinero puede<br><span>recuperar tu negocio</span><br>cada mes</h1>
     <p class="subtitle">En menos de 5 minutos, analizamos 4 areas criticas de tu empresa y te entregamos un diagnostico personalizado con numeros reales de tu negocio.</p>
     <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:14px;padding:20px 24px;margin-bottom:32px;text-align:center;">
@@ -375,8 +387,8 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 <div id="screen-results" class="screen">
   <div class="container">
     <div class="results-header fade-up">
-      <div class="badge">Diagnostico completado</div>
-      <h2>Tu Reporte de Rentabilidad Empresarial</h2>
+      <div class="badge">Radar completado</div>
+      <h2>Tu Radar de Rentabilidad</h2>
       <p id="results-intro-text"></p>
     </div>
     <div id="phase-banner" class="phase-banner fade-up"></div>
@@ -465,9 +477,9 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
       <div style="font-size:2rem;margin-bottom:10px">🔒</div>
       <h3>Tu plan de accion esta bloqueado</h3>
       <p style="margin-bottom:6px">Ya tienes tu potencial de recuperacion. El informe completo te dice exactamente <strong style="color:var(--text)">donde esta la oportunidad y como capturarla</strong> &mdash; con un plan priorizado por impacto economico real.</p>
-      <p style="font-size:.85rem;color:var(--muted);margin-bottom:20px">Lo que un consultor cobra por una sesion de diagnostico: <strong style="color:var(--text)">$247 USD</strong>. Lo que pagas hoy en precio de lanzamiento:</p>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:20px">Equivalente a menos de 30 minutos con un consultor especializado en rentabilidad. Precio de lanzamiento:</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:8px;">
-        <div class="price-badge"><span>$247</span> $37 USD</div>
+        <div class="price-badge">$37 USD</div>
       </div>
       <div style="font-size:.75rem;color:var(--muted);margin-bottom:20px;">Precio de lanzamiento &middot; Acceso inmediato &middot; Pago unico</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:22px;font-size:.8rem;color:var(--muted);text-align:left;max-width:380px;margin-left:auto;margin-right:auto;">
@@ -485,7 +497,7 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
       <div style="font-size:.72rem;color:var(--muted);margin-top:12px;">&#128274; Pago seguro via Hotmart &middot; <strong style="color:var(--text)">Garantia de 7 dias</strong> &mdash; si no encuentras valor, te devolvemos el dinero</div>
     </div>
     <div id="cta-section-paid" class="cta-section fade-up delay-4" style="display:none">
-      <h3>Comparte tu diagnostico</h3>
+      <h3>Comparte tu Radar</h3>
       <p style="color:var(--muted);margin-bottom:20px;">Guarda tu link personalizado o comparte los resultados con tu equipo o contador. El link reconstruye tu reporte exacto.</p>
       <div class="share-box" style="max-width:560px;margin:0 auto 20px;">
         <div class="share-url" id="share-url-paid">Generando link...</div>
@@ -494,6 +506,39 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
       <div class="cta-buttons">
         <button class="btn-secondary" onclick="window.print()">Descargar PDF</button>
       </div>
+    <!-- FOCUS UPSELL BLOCK -->
+    <div class="focus-upsell fade-up delay-4" id="focus-upsell-block" style="display:none">
+      <div class="focus-upsell-header">
+        <svg width="38" height="38" viewBox="0 0 80 80">
+          <circle cx="34" cy="34" r="22" fill="none" stroke="#ffffff" stroke-width="5"/>
+          <circle cx="34" cy="34" r="16" fill="rgba(255,255,255,0.07)"/>
+          <polyline points="22,40 27,34 32,37 37,28 42,31 47,24"
+            fill="none" stroke="#27AE7A" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="34" y="50" text-anchor="middle"
+            font-size="13" font-weight="600" fill="#F5A623"
+            font-family="sans-serif">$</text>
+          <line x1="50" y1="50" x2="64" y2="64"
+            stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <div style="text-align:left">
+          <div style="font-size:1rem;font-weight:700;letter-spacing:4px;color:#fff">FOCUS</div>
+          <div style="font-size:.6rem;letter-spacing:3px;color:#2A7DD4;text-transform:uppercase">Inteligencia de Rentabilidad</div>
+        </div>
+      </div>
+      <h3>Tu Radar detecto donde esta el problema.<br>FOCUS te dice exactamente cuanto te cuesta.</h3>
+      <p>El Radar identifica en que areas sangra tu rentabilidad a nivel macro. FOCUS va un nivel mas profundo: te muestra cuanto gana o pierde cada servicio o contrato con datos reales de tu contabilidad — para tomar decisiones con precision.</p>
+      <div class="focus-features">
+        <div><span>✦</span>Rentabilidad por servicio y contrato</div>
+        <div><span>✦</span>Asignacion de costos por absorcion</div>
+        <div><span>✦</span>Dashboard de margenes en tiempo real</div>
+        <div><span>✦</span>Decisiones con datos, no con intuicion</div>
+      </div>
+      <a href="https://www.focusrentabilidad.com" target="_blank" style="text-decoration:none">
+        <button class="btn-focus">Conocer FOCUS &rarr;</button>
+      </a>
+      <div class="focus-tagline-sub">Illuminating Profitability</div>
+    </div>
     </div>
   </div>
 </div>
@@ -948,6 +993,8 @@ function buildResults(){
   // CTA
   document.getElementById('cta-section-free').style.display=freeMode?'block':'none';
   document.getElementById('cta-section-paid').style.display=freeMode?'none':'block';
+  const fub=document.getElementById('focus-upsell-block');
+  if(fub) fub.style.display=freeMode?'none':'block';
 
   // SHARE BOX
   const shareBox=document.getElementById('share-box');
