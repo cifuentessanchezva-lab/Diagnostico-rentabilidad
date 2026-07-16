@@ -680,9 +680,10 @@ function validateEmail(){
   err.style.display=ok?'none':'block';
   return ok;
 }
-function sendDiagnosticEmail(shareURL,emailOverride){
+function sendDiagnosticEmail(shareURL,emailOverride,isPaid){
   const email=(emailOverride||document.getElementById('input-email').value).trim();
-  emailjs.send('service_vfxahim','template_0l97vgd',{
+  const tplId=isPaid?'template_0l97vgd':'template_f5wwfpy';
+  emailjs.send('service_vfxahim',tplId,{
     to_name:userName,
     to_email:email,
     report_link:shareURL,
@@ -706,7 +707,7 @@ function showResults(isFree){
   document.getElementById('progress-bar').style.width='100%';
   buildResults();
   const shareURL=generateShareURL();
-  sendDiagnosticEmail(shareURL);
+  sendDiagnosticEmail(shareURL,null,false);
 }
 function generateShareURL(){
   const{sc,overall}=computeResults();
@@ -1026,7 +1027,7 @@ renderRevenueOptions();
       show('screen-results');
       document.getElementById('progress-bar').style.width='100%';
       buildResults();
-      if(savedEmail){const paidURL=generateShareURL();sendDiagnosticEmail(paidURL,savedEmail);}
+      if(savedEmail){const paidURL=generateShareURL();sendDiagnosticEmail(paidURL,savedEmail,true);}
     } else {
       document.getElementById('screen-intro').classList.add('active');
     }
