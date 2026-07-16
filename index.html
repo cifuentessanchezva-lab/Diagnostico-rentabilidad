@@ -680,8 +680,8 @@ function validateEmail(){
   err.style.display=ok?'none':'block';
   return ok;
 }
-function sendDiagnosticEmail(shareURL){
-  const email=document.getElementById('input-email').value.trim();
+function sendDiagnosticEmail(shareURL,emailOverride){
+  const email=(emailOverride||document.getElementById('input-email').value).trim();
   emailjs.send('service_vfxahim','template_0l97vgd',{
     to_name:userName,
     to_email:email,
@@ -1018,6 +1018,7 @@ renderRevenueOptions();
       selectedBusinessType=saved.bt||'servicios';
       selectedCurrency=currencies[saved.cur]||currencies.USD;
       userName=saved.n||'Empresario';
+      const savedEmail=saved.email||'';
       freeMode=false;
       answers=saved.a;
       try{localStorage.removeItem('diagState');}catch(e){}
@@ -1025,6 +1026,7 @@ renderRevenueOptions();
       show('screen-results');
       document.getElementById('progress-bar').style.width='100%';
       buildResults();
+      if(savedEmail){const paidURL=generateShareURL();sendDiagnosticEmail(paidURL,savedEmail);}
     } else {
       document.getElementById('screen-intro').classList.add('active');
     }
