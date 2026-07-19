@@ -952,63 +952,79 @@ function buildResults(){
     document.getElementById('industry-insight').innerHTML=insightText+'<p style="font-size:.75rem;color:#64748b;margin-top:12px">* Benchmarks estimados basados en analisis de mercado LATAM. Representan tendencias del sector, no mediciones exactas de empresas especificas.</p>';
   }
 
-  // HOJA DE RUTA
-  // HOJA DE RUTA PERSONALIZADA con 3 pasos por tarea
-  const rmT=[
-    // [0] Finanzas
-    {m1:[
-      {t:'Audita tus precios y calcula el margen real de cada servicio',s:['Lista todos tus servicios con precio de venta y costo real (tiempo + herramientas)','Calcula el margen neto de cada uno: (precio - costo) / precio x 100','Marca en rojo los que tienen menos del 25% de margen neto']},
-      {t:'Elimina o reprecia los servicios con margen negativo o muy bajo',s:['Clasifica cada servicio en: rentable, ajustable o eliminar','Sube el precio o agrega condiciones a los servicios ajustables','Comunica los cambios con anticipacion y justifica el valor adicional']}
-    ],m2:[
-      {t:'Implementa precios basados en el valor que entregas, no en tu costo',s:['Calcula el valor economico concreto que genera tu servicio para el cliente','Define tu precio como el 10-20% de ese valor generado','Prueba el nuevo precio con 3 prospectos nuevos antes de aplicarlo masivamente']},
-      {t:'Crea un dashboard mensual de rentabilidad por servicio',s:['Define 5 metricas clave: ingresos, costo, margen, clientes y ticket promedio','Crea una hoja de calculo simple con esas columnas y actualiza el primer dia de cada mes','Pon una alerta si algun margen cae por debajo de tu umbral minimo']}
-    ],m3:[
-      {t:'Revisa precios con datos reales y ajusta los que quedaron cortos',s:['Compara el margen real vs el margen objetivo de los ultimos 2 meses','Identifica cuales servicios crecieron en demanda y tienen espacio para subir','Aplica el ajuste y comunica el valor adicional que lo justifica']},
-      {t:'Disenha un tier premium para clientes existentes',s:['Identifica que resultado adicional valora mas tu cliente ideal','Estructura el paquete con 2-3 beneficios exclusivos y concretos','Presentalo primero a tus 3 mejores clientes y mide la respuesta']}
+  // HOJA DE RUTA - tareas especificas por accion priorizada
+  // Cada entrada corresponde al indice de pregunta (q) en acts[]
+  const roadmapByAction={
+    0:{tasks:[
+      {t:'Calcula el valor economico real que entregas a cada tipo de cliente',s:['Lista los 3 principales resultados que tu cliente obtiene: ahorro de tiempo, ingresos adicionales o costos evitados','Asigna un valor economico estimado a cada resultado multiplicando su impacto por frecuencia o monto','Define tu precio como el 15-20% del valor total generado — no del costo que tienes']},
+      {t:'Prueba el nuevo precio con los proximos 3 prospectos sin negociar primero',s:['Presenta el precio nuevo sin disculparte ni ofrecer descuento antes de escuchar su reaccion','Documenta las objeciones exactas y la pregunta que hacen antes de decir si o no','Ajusta el encuadre de valor, no el precio, segun los patrones que detectes en esas conversaciones']},
+      {t:'Migra gradualmente tus clientes actuales al nuevo esquema',s:['Identifica los 3 clientes con mayor potencial de upgrade y menor riesgo de irse','Prepara una conversacion de revision mostrando resultados concretos antes de mencionar el nuevo precio','Aplica el cambio con 30 dias de anticipacion y ofrece una opcion de transicion si es necesario']}
     ]},
-    // [1] Operaciones
-    {m1:[
-      {t:'Mapea tus tareas mas repetitivas y mide el tiempo que consumen',s:['Lleva un registro de tiempo durante 3 dias con papel o una app simple','Suma las horas semanales de cada tarea repetitiva','Calcula el costo real: horas x tu tarifa horaria minima']},
-      {t:'Documenta los 2 procesos que mas errores generan',s:['Graba en video como ejecutas el proceso mientras lo haces','Convierte el video en una lista de pasos en Google Docs o Notion','Pide a alguien que siga la guia sin tu ayuda para detectar lagunas']}
-    ],m2:[
-      {t:'Automatiza 2 tareas administrativas con Make.com o Zapier',s:['Identifica tareas entre apps digitales que haces manualmente','Busca si existe una automatizacion lista en Make o Zapier para esa combinacion','Activa y monitorea durante 1 semana antes de dejarla correr de forma autonoma']},
-      {t:'Crea un sistema de checklists para tareas recurrentes',s:['Usa Notion o Google Docs para crear una checklist por proceso clave','Define responsable y dia de ejecucion para cada paso','Revisa el cumplimiento cada semana durante el primer mes']}
-    ],m3:[
-      {t:'Delega o externaliza actividades de bajo valor',s:['Clasifica tus tareas: solo yo, alguien puede aprenderlo, se puede externalizar','Identifica un freelancer o herramienta para las tareas externalizables','Calcula el costo de externalizar vs el valor de tu tiempo recuperado']},
-      {t:'Mide el tiempo recuperado y reinviertelo en ventas',s:['Lleva un registro semanal de horas liberadas por automatizacion o delegacion','Asigna ese tiempo explicitamente a prospeccion o nuevos servicios','Mide si las horas reinvertidas generaron nuevos ingresos al final del mes']}
+    1:{tasks:[
+      {t:'Lista todos tus servicios y calcula el margen real de cada uno',s:['Para cada servicio: precio de venta, horas promedio de entrega y costo de herramientas o materiales directos','Calcula el margen: precio - (horas x tu tarifa minima) - costos directos de entrega','Clasifica en verde (>40%), amarillo (20-40%) y rojo (<20%) para visualizar tu portafolio de un vistazo']},
+      {t:'Crea la plantilla de seguimiento mensual en Google Sheets o Notion',s:['Columnas: Servicio | Unidades vendidas | Ingresos | Costos | Margen COP | % Margen','Completa los ultimos 2 meses con datos historicos aproximados como referencia de partida','Configura formato condicional o color manual: alerta si algun margen cae por debajo de tu umbral minimo']},
+      {t:'Toma decisiones concretas con los primeros datos del dashboard',s:['Ajusta precio o reduce costo del servicio con menor margen en tu portafolio este mes','Prioriza en tu oferta comercial el servicio de mayor margen — en propuestas, en redes, en conversaciones','Agenda el primer dia de cada mes como fecha fija inamovible de actualizacion y revision']}
     ]},
-    // [2] Clientes
-    {m1:[
-      {t:'Mapea el recorrido completo de tu cliente',s:['Lista cada punto de contacto desde el primer mensaje hasta el pago','Identifica en cual punto se pierde la mayoria de los prospectos','Define una accion concreta para mejorar ese punto de quiebre esta semana']},
-      {t:'Activa seguimiento de prospectos que no cerraron',s:['Lista todos los prospectos de los ultimos 90 dias que no compraron','Crea una secuencia de 3 mensajes: valor, caso de exito, oferta concreta','Envia el primer mensaje esta semana y mide cuantos responden']}
-    ],m2:[
-      {t:'Lanza una secuencia de seguimiento post-venta de 30 dias',s:['Define 4 momentos: dia 1 bienvenida, dia 7 check-in, dia 15 valor extra, dia 30 feedback','Redacta los mensajes para cada momento en maximo 5 lineas cada uno','Automatiza o agenda la secuencia en tu calendario o herramienta de mensajeria']},
-      {t:'Activa una oferta de upsell para clientes satisfechos',s:['Identifica el siguiente problema logico que tiene tu cliente despues de comprarte','Disenha una oferta que resuelva ese siguiente paso con precio claro','Presentala en el dia 15 o 30 de tu secuencia post-venta']}
-    ],m3:[
-      {t:'Lanza un programa de referidos con incentivo claro',s:['Define el incentivo: descuento, bono o servicio adicional por cada referido que compre','Comunica el programa a tus 5 mejores clientes de forma personalizada','Mide cuantos referidos genera en el primer mes y ajusta si es necesario']},
-      {t:'Mide tu tasa de retencion y establece una meta',s:['Calcula cuantos clientes del trimestre anterior siguen activos hoy','Define tu meta de retencion: minimo 70% trimestral','Identifica clientes en riesgo de irse y activa una accion preventiva']}
+    2:{tasks:[
+      {t:'Define los limites de descuento permitidos por tipo de situacion',s:['Descuento maximo sin aprobacion: define tu porcentaje tope (ej: 5-10%)','Descuento que requiere tu visto bueno directo: define el rango (ej: 10-15%)','Por encima del tope: solo con contraprestacion clara — pago anticipado, contrato mas largo o referido comprometido']},
+      {t:'Crea 3 alternativas concretas al descuento en precio',s:['Lista beneficios que puedes ofrecer en lugar de bajar precio: sesion adicional, soporte prioritario, plantilla o recurso extra','Escribe el guion de respuesta exacto ante "esta muy caro": "En lugar de reducir el precio, puedo incluir..."','Practica la respuesta en voz alta o con un colega — la incomodidad de no ceder se entrena con repeticion']},
+      {t:'Implementa la politica, comparte con tu equipo y mide el impacto',s:['Escribe la politica completa en una sola pagina y comparte con todos los que hacen cotizaciones o ventas','Lleva un registro mensual del porcentaje de descuento promedio otorgado en el periodo','Si el descuento promedio supera tu tope, identifica el patron — quien, cuando, como — y corrige ese punto especifico']}
     ]},
-    // [3] Automatizacion
-    {m1:[
-      {t:'Instala un CRM y centraliza todos tus contactos',s:['Crea cuenta en HubSpot Free o configura una base de datos en Notion','Importa todos tus contactos de WhatsApp, email y tarjetas fisicas','Clasifica cada contacto en: prospecto, cliente activo o cliente inactivo']},
-      {t:'Configura respuestas automaticas para consultas frecuentes',s:['Lista las 5 preguntas que mas recibes por WhatsApp o email','Redacta una respuesta clara y completa para cada una (maximo 3 parrafos)','Configuralas en WhatsApp Business o en la respuesta automatica de correo']}
-    ],m2:[
-      {t:'Conecta tus herramientas para eliminar trabajo manual',s:['Mapea que datos transfieres manualmente entre apps cada semana','Identifica las 2 conexiones que mas tiempo consumen y busca el conector en Make o Zapier','Activa la integracion y verifica que los datos lleguen correctamente durante 3 dias']},
-      {t:'Implementa un reporte semanal automatizado de metricas',s:['Define tus 5 KPIs: ingresos, prospectos, conversion, retencion y margen','Conecta tus fuentes de datos a una hoja de calculo o dashboard simple','Programa un recordatorio cada lunes para revisar el reporte en menos de 10 minutos']}
-    ],m3:[
-      {t:'Integra IA en un proceso de comunicacion o ventas',s:['Identifica una tarea de redaccion o respuesta que haces manualmente cada semana','Configura una herramienta de IA para ese proceso especifico','Crea una plantilla de prompt que cualquier miembro del equipo pueda usar sin dependerte']},
-      {t:'Evalua el ROI de cada herramienta que pagas',s:['Lista todas tus suscripciones digitales con su costo mensual','Para cada una define si genero un ingreso medible o te ahorro tiempo equivalente a su costo','Cancela las que no superan el umbral y redirige ese dinero a herramientas de mayor impacto']}
+    3:{tasks:[
+      {t:'Mapea tus tareas mas repetitivas y mide el tiempo real que consumen',s:['Lleva un registro durante 3 dias: anota cada tarea repetitiva y los minutos que le dedicas sin estimacion','Suma las horas semanales de cada tarea y calcula su costo: horas x tu tarifa horaria minima','Prioriza las 3 tareas que combinan mayor tiempo consumido y menor valor estrategico para el negocio']},
+      {t:'Automatiza los 2 procesos de mayor impacto con herramientas accesibles',s:['Para tareas entre apps: configura un flujo en Make.com o Zapier — ambos tienen plan gratuito para empezar','Para comunicaciones repetitivas: configura respuestas automaticas en WhatsApp Business o secuencias en Brevo','Activa cada automatizacion y monitorea 5 dias para detectar errores antes de depender completamente de ellas']},
+      {t:'Activa el tercer proceso y mide el tiempo total recuperado por semana',s:['Implementa la automatizacion del tercer proceso priorizando el que mas errores manuales generaba','Calcula el tiempo total recuperado sumando las 3 automatizaciones activas — anota el numero concreto en horas','Asigna ese tiempo explicitamente a una actividad de alto valor: ventas, nuevos servicios o clientes estrategicos']}
+    ]},
+    4:{tasks:[
+      {t:'Selecciona los 3 procesos criticos y graba como los ejecutas en tiempo real',s:['Criterio: los que mas se repiten, los que mas errores generan, o los que solo tu sabes hacer hoy','Graba en video mientras ejecutas cada proceso — sin editar, sin resumir, capturando todos los pasos reales','Usa Loom (gratuito) o la camara del telefono — lo importante es capturar la ejecucion completa sin saltar pasos']},
+      {t:'Convierte las grabaciones en guias paso a paso con criterios de calidad',s:['Transcribe cada video en una lista numerada de pasos en Notion o Google Docs','Para cada paso critico define como se ve cuando esta bien hecho — ese es tu criterio de calidad','Agrega capturas de pantalla o fotos en los puntos donde se cometen mas errores o surgen mas preguntas']},
+      {t:'Prueba que los procesos funcionan sin tu supervision directa',s:['Pide a alguien — colega, asistente o nuevo miembro — que ejecute el proceso usando solo la guia escrita','Anota cada punto donde se traba o tiene que preguntarte algo — esos son los gaps reales de la guia','Actualiza hasta que el proceso funcione autonomamente al menos 2 veces consecutivas sin tu intervencion']}
+    ]},
+    5:{tasks:[
+      {t:'Clasifica todas tus tareas semanales segun su nivel de dependencia en ti',s:['Categoria A: Requiere mi criterio personal o mi relacion directa con el cliente — no se puede delegar aun','Categoria B: Alguien puede aprenderlo en menos de 1 semana con capacitacion y una guia clara','Categoria C: Se puede externalizar hoy sin capacitacion — un freelancer o una herramienta pueden ejecutarlo']},
+      {t:'Delega 2 tareas B y externaliza al menos 1 tarea C esta semana',s:['Para tareas B: escoge a la persona con mas disponibilidad, define el entregable exacto y el estandar de calidad esperado','Para tareas C: publica en Workana o Fiverr con descripcion precisa, presupuesto y plazo — primera contratacion en 48h','Haz la primera revision a las 48 horas para detectar desvios temprano sin convertirte en microgestor']},
+      {t:'Mide el tiempo liberado y reinviertelo en actividades de alto valor',s:['Lleva un registro simple semanal de horas que ya no ejecutas directamente gracias a delegacion o externalizacion','Asigna ese tiempo de forma explicita a ventas, desarrollo de producto o atencion a clientes estrategicos','Al finalizar el mes 3 evalua si las tareas delegadas mantienen el estandar de calidad que definiste al inicio']}
+    ]},
+    6:{tasks:[
+      {t:'Define la secuencia de 4 contactos post-venta en los primeros 30 dias',s:['Dia 1: mensaje de bienvenida con acceso inmediato a lo prometido sin friccion ni pasos extra','Dia 7: check-in de satisfaccion con una pregunta especifica sobre su mayor duda o dificultad actual','Dia 15: contenido de valor adicional — un tip, recurso o caso aplicable a lo que compraron','Dia 30: solicitud de feedback honesto + presentacion del siguiente paso natural o programa de referidos']},
+      {t:'Redacta los mensajes y automatiza o agenda la secuencia completa',s:['Escribe cada mensaje en maximo 5 lineas: tono personal, sin lenguaje corporativo, con una sola llamada a accion','Prueba la secuencia enviandotela a ti mismo y leyendola como cliente — elimina todo lo que suene a plantilla','Automatiza con Brevo (gratuito hasta 300 emails/dia) o agenda en tu calendario con recordatorios de envio']},
+      {t:'Mide retencion, satisfaccion y referidos generados por la secuencia',s:['Registra cuantos clientes pasan por la secuencia vs cuantos compran nuevamente en los siguientes 90 dias','Cuenta cuantos referidos llegan mencionando a un cliente que ya paso por el programa post-venta','Ajusta el mensaje con menor tasa de respuesta — suele ser el de dia 15 — basandote en lo que si responden en otros']}
+    ]},
+    7:{tasks:[
+      {t:'Configura tu CRM e importa todos los prospectos activos de los ultimos 90 dias',s:['Crea cuenta en HubSpot CRM gratuito o una tabla en Notion con columnas: Nombre | Estado | Ultimo contacto | Proxima accion | Fecha','Importa TODOS los prospectos que no cerraron en los ultimos 90 dias: WhatsApp, email, redes, referidos — sin dejar ninguno fuera','Clasifica cada uno en: reciente (<30 dias), tibio (30-60 dias) o frio (>60 dias) para priorizar donde actuar primero']},
+      {t:'Define y ejecuta la secuencia de seguimiento de hasta 7 contactos',s:['Contacto 1: propuesta o respuesta inicial (dia 1) — Contactos 2 y 3: contenido de valor sin pedir nada (dias 3 y 7)','Contactos 4 y 5: pregunta directa de cierre con urgencia suave (dias 14 y 21) — Contacto 6: ultima oferta con fecha limite (dia 30)','Contacto 7: pausa formal con reactivacion futura — "Te escribo en 60 dias cuando..." — y agenda el recordatorio en ese momento']},
+      {t:'Activa la rutina semanal fija de revision y actualizacion del pipeline',s:['Bloquea 1 hora inamovible cada semana en tu calendario — solo para revisar el CRM y actualizar el estado de cada prospecto','Define la accion concreta para cada estado posible: contactar, esperar, negociar activamente, cerrar o archivar','Mide mensualmente: prospectos que entran, que avanzan de etapa y que se convierten — esa es tu tasa de conversion real']}
+    ]},
+    8:{tasks:[
+      {t:'Identifica el siguiente problema logico de tu cliente despues de comprarte',s:['Para cada servicio o producto que vendes preguntate: ahora que mi cliente tiene esto, cual es su siguiente necesidad natural','Define 1-2 ofertas de upgrade con precio claro y margen superior al servicio original que ya te compro','Calcula el ingreso potencial mensual si el 20% de tus clientes actuales aceptaran el upsell — ese es tu objetivo de 90 dias']},
+      {t:'Prueba el upsell con los 5 clientes de mayor satisfaccion',s:['Elige el momento de mayor satisfaccion para presentarlo: dias 15-30 post-compra o despues de un resultado concreto obtenido','Usa el encuadre: "Ahora que ya lograste X con nosotros, el siguiente paso natural para llegar a Y es..."','Documenta la respuesta: si acepta, el argumento que funciono; si no, la objecion exacta para ajustar el proximo intento']},
+      {t:'Integra el upsell en tu secuencia post-venta y mide la aceptacion mensual',s:['Incorpora la oferta en el mensaje de dia 30 de tu secuencia automatizada como recomendacion personalizada, no como venta','Registra mensualmente: cuantos clientes reciben la oferta, cuantos la aceptan y el ingreso adicional generado','Si la aceptacion es menor al 15% revisa el valor percibido; si supera el 35% considera aumentar el precio del upsell']}
+    ]},
+    9:{tasks:[
+      {t:'Audita tus herramientas actuales e identifica los puntos de mayor friccion',s:['Lista todas las herramientas que usas: WhatsApp, Excel, email, redes, apps de diseno, facturacion, etc.','Identifica que informacion transfieres manualmente entre ellas cada semana y cuanto tiempo exacto consume','Calcula el costo de esa friccion: horas perdidas x tu tarifa horaria — eso es lo que te cuesta no estar integrado']},
+      {t:'Selecciona e implementa la plataforma de mayor impacto para tu tipo de negocio',s:['Si tu mayor dolor es clientes y ventas: HubSpot Free (CRM + email + pipeline de ventas en un solo lugar)','Si tu mayor dolor es operaciones y entrega: Notion o Monday.com (proyectos, procesos y documentacion integrados)','Si tu mayor dolor es finanzas y facturacion: Alegra o Siigo (facturacion + contabilidad + reportes sin exportar datos)']},
+      {t:'Migra completamente, capacita a tu equipo y desactiva lo que ya no necesitas',s:['Semanas 1-2: configura la herramienta con tus datos actuales y opera en paralelo para detectar problemas sin riesgo','Semana 3: migra completamente y cancela o desactiva las herramientas que ya reemplazo — libera el costo mensual','Semana 4: documenta el nuevo flujo en una guia de 1 pagina que cualquier miembro del equipo pueda seguir de forma autonoma']}
+    ]},
+    10:{tasks:[
+      {t:'Mapea todos los mensajes repetitivos que envias manualmente cada semana',s:['Lista los tipos: confirmaciones de cita o pago, recordatorios, bienvenidas, respuestas a preguntas frecuentes, solicitudes de reseha','Estima los minutos al dia que consumen en total incluyendo el tiempo de cambiar de app y retomar el contexto','Prioriza los 3 mas frecuentes y los 2 que mas frecuentemente olvidas enviar por falta de tiempo o seguimiento']},
+      {t:'Implementa la automatizacion de los 3 mensajes mas criticos',s:['WhatsApp Business: configura mensaje de bienvenida automatico, respuestas rapidas y mensaje de ausencia con tus horarios reales','Email: crea una secuencia de bienvenida de 3 mensajes en Brevo o Mailchimp para cada nuevo contacto con contenido de valor','Confirmaciones y recordatorios: usa Calendly o las notificaciones automaticas de tu herramienta de cobro o agenda']},
+      {t:'Refina los flujos y mide si los clientes responden mejor que antes',s:['Lee cada mensaje automatizado como si fueras el cliente: elimina todo lo que suene robotico, generico o corporativo','Agrega el nombre del cliente y una referencia a lo que contrato o consulto — que se sienta escrito para el, no para todos','Mide mensualmente la tasa de respuesta y cuantas preguntas de seguimiento llegan — menos preguntas = mejor automatizacion']}
+    ]},
+    11:{tasks:[
+      {t:'Define tus 5 metricas clave y calcula sus valores de los ultimos 2 meses',s:['Ventas totales del mes | Tasa de conversion: prospectos que se vuelven clientes | Tasa de retencion: clientes que repiten en 90 dias','Margen promedio por servicio | Costo de adquisicion de cliente: inversion en marketing y ventas / nuevos clientes del mes','Busca los datos en tus registros actuales — aunque sean aproximados son mejor punto de partida que ningun dato']},
+      {t:'Crea el dashboard en Google Sheets o Notion con alertas visuales de meta',s:['Una tabla con las 5 metricas en filas y los meses en columnas — maximo 1 pagina visible sin hacer scroll horizontal','Define la meta de cada metrica para el proximo trimestre y agrega una columna de diferencia vs meta','Configura colores: rojo si esta por debajo de meta, amarillo en rango, verde si la supera — decision en 10 segundos de vistazo']},
+      {t:'Activa la rutina de revision semanal y toma de decisiones basadas en los datos',s:['15 minutos cada lunes: actualiza las metricas de la semana anterior con datos reales — sin esperar al fin de mes','30 minutos el primer dia del mes: analiza tendencias, identifica la metrica mas critica y define UNA accion de mejora concreta','Regla de decision: si una metrica cae 2 meses consecutivos debajo de meta, activa revision estrategica de inmediato']}
     ]}
-  ];
-  const sorted2=[...sc.entries()].sort((a,b)=>a[1]-b[1]);
-  const w1=sorted2[0][0], w2=sorted2[1][0], w3=sorted2[2][0];
+  };
+  // La hoja de ruta deriva directamente de las 3 acciones priorizadas
+  const safeChosen=chosen.length>=3?chosen:chosen.concat(chosen).slice(0,3);
   const rm=[
-    {cls:'phase-mes1',label:'MES 1 - SEMANAS 1 A 4',title:'Foco: '+sections[w1].label,
-     tasks:[rmT[w1].m1[0], rmT[w1].m1[1], rmT[w2].m1[0]]},
-    {cls:'phase-mes2',label:'MES 2 - SEMANAS 5 A 8',title:'Foco: '+sections[w2].label+' y '+sections[w3].label,
-     tasks:[rmT[w2].m2[0], rmT[w2].m2[1], rmT[w3].m2[0]]},
-    {cls:'phase-mes3',label:'MES 3 - SEMANAS 9 A 12',title:'Foco: Escalar con Control',
-     tasks:[rmT[w1].m3[0], rmT[w2].m3[0], rmT[w3].m3[0]]}
+    {cls:'phase-mes1',label:'MES 1 - SEMANAS 1 A 4',title:'Accion 1: '+safeChosen[0].t,
+     tasks:roadmapByAction[safeChosen[0].q].tasks},
+    {cls:'phase-mes2',label:'MES 2 - SEMANAS 5 A 8',title:'Accion 2: '+safeChosen[1].t,
+     tasks:roadmapByAction[safeChosen[1].q].tasks},
+    {cls:'phase-mes3',label:'MES 3 - SEMANAS 9 A 12',title:'Accion 3: '+safeChosen[2].t,
+     tasks:roadmapByAction[safeChosen[2].q].tasks}
   ];
   const renderTask=t=>'<div class="roadmap-task"><div class="roadmap-task-title">'+t.t+'</div><div class="roadmap-steps">'+t.s.map(s=>'<div class="roadmap-step">'+s+'</div>').join('')+'</div></div>';
   document.getElementById('roadmap-phases').innerHTML=rm.map(p=>'<div class="roadmap-phase '+p.cls+'"><div class="roadmap-phase-label">'+p.label+'</div><div class="roadmap-phase-title">'+p.title+'</div>'+p.tasks.map(renderTask).join('')+'</div>').join('');
