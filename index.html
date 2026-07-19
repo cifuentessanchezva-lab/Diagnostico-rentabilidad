@@ -299,8 +299,12 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
         <button class="currency-btn" onclick="setCurrency('CLP')" id="cur-CLP">CLP</button>
       </div>
     </div>
-    <button class="btn-primary" onclick="trackEvent('quiz_start');show('screen-context')">Iniciar mi diagnostico �</button>
+    <button class="btn-primary" onclick="trackEvent('quiz_start');show('screen-context')">Iniciar mi diagnostico 🚀</button>
     <div class="trust">100% gratuito &middot; Resultados inmediatos &middot; Sin tarjeta de credito</div>
+    <div id="returning-user-banner" style="display:none;margin-top:28px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:16px 20px;text-align:center;">
+      <p style="color:#94a3b8;font-size:.85rem;margin:0 0 10px">Ya tienes un diagnostico pagado en este dispositivo</p>
+      <button onclick="loadPreviousReport()" style="background:linear-gradient(135deg,#065f46,#047857);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;">&#x1F4CA; Ver mi reporte anterior</button>
+    </div>
   </div>
 </div>
 
@@ -810,6 +814,23 @@ function copyShareLinkPaid(){
     setTimeout(()=>btn.textContent='Copiar link',2000);
   });
 }
+function loadPreviousReport(){
+  let saved=null;
+  try{saved=JSON.parse(localStorage.getItem('diagStatePaid'));}catch(e){}
+  if(!saved||!saved.a){return;}
+  selectedRevenue=saved.r||3000;
+  selectedClients=saved.c||13;
+  selectedBusinessType=saved.bt||'servicios';
+  selectedMargin=saved.mg||null;
+  selectedCurrency=currencies[saved.cur]||currencies.USD;
+  userName=saved.n||'Empresario';
+  freeMode=false;
+  answers=saved.a;
+  show('screen-results');
+  document.getElementById('progress-bar').style.width='100%';
+  buildResults();
+}
+
 function loadFromURL(){
   const p=new URLSearchParams(window.location.search);
   if(!p.get('s')) return false;
@@ -1171,6 +1192,16 @@ function buildResults(){
     setTimeout(()=>{document.querySelectorAll('.roi-bar-fill').forEach(el=>{el.style.width=el.dataset.width;});},400);
     document.getElementById('roi-total').textContent=fmt(acc);
     document.getElementById('roi-inversion').textContent=fmt(37)+' (este diagnostico)';
+    // NOTA METODOLÓGICA
+    const roiCard=document.getElementById('roi-timeline').closest('.result-card')||document.getElementById('roi-timeline').parentElement;
+    const metNote=document.createElement('div');
+    metNote.style.cssText='margin-top:24px;padding:16px 20px;background:rgba(148,163,184,.07);border:1px solid rgba(148,163,184,.18);border-radius:12px;font-size:.82rem;color:#94a3b8;line-height:1.7';
+    metNote.innerHTML=
+      '<strong style="color:#cbd5e1;display:block;margin-bottom:8px">&#x2139;&#xFE0F; Nota sobre estos estimados</strong>'+
+      '<p style="margin:0 0 6px"><strong style="color:#e2e8f0">Qué miden:</strong> el potencial de recuperacion se calcula sobre eficiencia operativa — reduccion de tiempo perdido, procesos optimizados y recursos mejor aprovechados. Es el impacto mas directo y medible.</p>'+
+      '<p style="margin:0 0 6px"><strong style="color:#e2e8f0">Qué no miden (pero tambien ocurrira):</strong> mejor servicio genera mas clientes referidos, precios mejor estructurados amplian el margen sobre los mismos ingresos, y mayor retencion produce ingresos compuestos en el tiempo. Estos beneficios adicionales incrementaran el retorno real por encima de lo proyectado aqui.</p>'+
+      '<p style="margin:0"><strong style="color:#e2e8f0">Costos de implementacion:</strong> la mayoria de las acciones de este plan tienen costo cero o muy bajo — son cambios de proceso, no de inversion. Algunas herramientas recomendadas tienen planes gratuitos. Si decides contratar acompanamiento externo para acelerar la implementacion, ese costo debe considerarse en tu calculo de retorno neto.</p>';
+    roiCard.appendChild(metNote);
   }
 
   // PLAN DE ACCION
@@ -1209,6 +1240,16 @@ renderRevenueOptions();
   const isPaidURL=urlP.get('paid')==='1';
   let alreadyPaid=false;
   try{alreadyPaid=localStorage.getItem('radarIsPaid')==='1';}catch(e){}
+
+  // Mostrar banner de reporte anterior si hay sesión pagada guardada
+  if(!urlP.get('s')&&!isPaidURL){
+    try{
+      const prev=JSON.parse(localStorage.getItem('diagStatePaid'));
+      if(prev&&prev.a&&localStorage.getItem('radarIsPaid')==='1'){
+        document.getElementById('returning-user-banner').style.display='block';
+      }
+    }catch(e){}
+  }
 
   // PRIORIDAD 1: URL tiene estado completo (link del email) → siempre prevalece sobre localStorage
   if(urlP.get('s')){
