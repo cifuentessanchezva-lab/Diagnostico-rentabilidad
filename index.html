@@ -190,6 +190,20 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 .action-body h4{font-size:1rem;font-weight:700;margin-bottom:6px;}
 .action-body p{font-size:.88rem;color:var(--muted);margin-bottom:10px;}
 .action-impact{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:var(--green);font-size:.78rem;font-weight:600;padding:4px 10px;border-radius:100px;}
+.action-tool{font-size:.75rem;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px solid var(--border);}
+.action-tool strong{color:var(--text);}
+.area-breakdown{margin-bottom:28px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 24px;}
+.area-breakdown h4{font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;text-align:center;}
+.breakdown-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.breakdown-label{font-size:.8rem;color:var(--text);width:100px;flex-shrink:0;}
+.breakdown-track{flex:1;height:7px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;}
+.breakdown-fill{height:100%;border-radius:4px;transition:width .8s ease;width:0%;}
+.breakdown-value{font-size:.78rem;font-weight:600;color:var(--text);width:100px;text-align:right;flex-shrink:0;}
+.quick-wins-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:14px;padding:18px 22px;margin-top:20px;}
+.quick-wins-box h4{font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:12px;letter-spacing:.02em;}
+.quick-win-item{display:flex;gap:10px;margin-bottom:8px;font-size:.8rem;color:var(--text);line-height:1.5;}
+.quick-win-item:last-child{margin-bottom:0;}
+.quick-win-bullet{color:var(--accent);font-weight:700;flex-shrink:0;}
 .roadmap-section{margin-bottom:32px;}
 .roadmap-section h3{font-size:1.1rem;font-weight:700;margin-bottom:20px;text-align:center;}
 .roadmap-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
@@ -456,9 +470,11 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
       <div id="industry-rows"></div>
       <div class="industry-insight" id="industry-insight"></div>
     </div>
+    <div id="area-breakdown" class="area-breakdown fade-up delay-3" style="display:none;"></div>
     <div class="plan-section fade-up delay-3">
       <h3 style="text-align:center;margin-bottom:20px;">Tu Plan de Accion Priorizado</h3>
       <div id="action-plan"></div>
+      <div id="quick-wins"></div>
     </div>
     <div class="roadmap-section fade-up delay-3">
       <h3 style="text-align:center;margin-bottom:12px;">Hoja de Ruta - 90 Dias para Transformar tu Rentabilidad</h3>
@@ -860,32 +876,44 @@ function buildResults(){
   const acts=[
     // Area 0 - Precios
     {q:0,sec:0,t:'Implementa un modelo de precios basado en valor',
-     d:'Las empresas que aplican pricing basado en valor capturan entre 20-40% mas de margen sin perder clientes (McKinsey & Company). Calcula el valor economico real que entregas y cobra un porcentaje de ese valor.',impPct:0.6},
+     d:'Las empresas que aplican pricing basado en valor capturan entre 20-40% mas de margen sin perder clientes (McKinsey & Company). Calcula el valor economico real que entregas y cobra un porcentaje de ese valor.',impPct:0.6,
+     tool:'Google Sheets o Notion para calcular y comparar margenes por servicio'},
     {q:1,sec:0,t:'Crea un dashboard mensual de rentabilidad por servicio',
-     d:'El 30% de los servicios en empresas sin control de margenes generan perdidas ocultas (Deloitte Business Intelligence). Identifica cuales son los mas y menos rentables, ajusta precios o elimina los que no funcionan.',impPct:0.4},
+     d:'El 30% de los servicios en empresas sin control de margenes generan perdidas ocultas (Deloitte Business Intelligence). Identifica cuales son los mas y menos rentables, ajusta precios o elimina los que no funcionan.',impPct:0.4,
+     tool:'Google Sheets con formato condicional — gratuito, listo en 2 horas'},
     {q:2,sec:0,t:'Establece una politica de descuentos y protege tu margen',
-     d:'Los descuentos no controlados pueden erosionar hasta el 80% del margen de una empresa (McKinsey Pricing Practice). Define un limite maximo, requiere aprobacion para excepciones y ofrece valor adicional en lugar de precio menor.',impPct:0.3},
+     d:'Los descuentos no controlados pueden erosionar hasta el 80% del margen de una empresa (McKinsey Pricing Practice). Define un limite maximo, requiere aprobacion para excepciones y ofrece valor adicional en lugar de precio menor.',impPct:0.3,
+     tool:'Google Docs para documentar la politica + compartir con tu equipo'},
     // Area 1 - Operaciones
     {q:3,sec:1,t:'Automatiza tus 3 procesos mas repetitivos',
-     d:'McKinsey Global Institute estima que hasta el 45% de las actividades laborales actuales pueden automatizarse con herramientas como Make.com o Zapier. Cada hora recuperada tiene valor directo en tu facturacion.',impPct:0.5},
+     d:'McKinsey Global Institute estima que hasta el 45% de las actividades laborales actuales pueden automatizarse con herramientas como Make.com o Zapier. Cada hora recuperada tiene valor directo en tu facturacion.',impPct:0.5,
+     tool:'Make.com o Zapier (plan gratuito) + WhatsApp Business para mensajeria'},
     {q:4,sec:1,t:'Documenta y estandariza tus procesos clave',
-     d:'Empresas con procesos documentados escalan 3x mas rapido y tienen 40% menos errores operativos (Deloitte Operations). Empieza con los 5 procesos que mas se repiten y escribe como se hacen paso a paso.',impPct:0.35},
+     d:'Empresas con procesos documentados escalan 3x mas rapido y tienen 40% menos errores operativos (Deloitte Operations). Empieza con los 5 procesos que mas se repiten y escribe como se hacen paso a paso.',impPct:0.35,
+     tool:'Loom (gratuito) para grabar procesos + Notion o Google Docs para documentar'},
     {q:5,sec:1,t:'Implementa un sistema de delegacion efectiva',
-     d:'Los fundadores que delegan efectivamente generan 33% mas ingresos en 3 anos que quienes no lo hacen (Harvard Business Review). Clasifica tus tareas: solo-yo, alguien-puede-aprender, puede-externalizarse.',impPct:0.4},
+     d:'Los fundadores que delegan efectivamente generan 33% mas ingresos en 3 anos que quienes no lo hacen (Harvard Business Review). Clasifica tus tareas: solo-yo, alguien-puede-aprender, puede-externalizarse.',impPct:0.4,
+     tool:'Workana o Fiverr para freelancers + Notion para seguimiento de tareas'},
     // Area 2 - Retencion
     {q:6,sec:2,t:'Lanza un programa de fidelizacion post-venta',
-     d:'Segun Bain & Company, aumentar la retencion de clientes en solo un 5% incrementa las ganancias entre 25% y 95%. Una secuencia de 30 dias post-compra puede transformar compradores unicos en clientes recurrentes.',impPct:0.5},
+     d:'Segun Bain & Company, aumentar la retencion de clientes en solo un 5% incrementa las ganancias entre 25% y 95%. Una secuencia de 30 dias post-compra puede transformar compradores unicos en clientes recurrentes.',impPct:0.5,
+     tool:'Brevo (gratuito hasta 300 emails/dia) o WhatsApp Business'},
     {q:7,sec:2,t:'Implementa un sistema de seguimiento a prospectos',
-     d:'El 80% de las ventas se cierra entre el 5to y 12vo contacto (National Sales Executive Association). Un flujo de follow-up automatizado puede triplicar tu tasa de cierre sin aumentar inversion en publicidad.',impPct:0.4},
+     d:'El 80% de las ventas se cierra entre el 5to y 12vo contacto (National Sales Executive Association). Un flujo de follow-up automatizado puede triplicar tu tasa de cierre sin aumentar inversion en publicidad.',impPct:0.4,
+     tool:'HubSpot CRM Free — gratuito, ilimitado en contactos, listo en 1 hora'},
     {q:8,sec:2,t:'Activa un sistema de upsell estrategico',
-     d:'El costo de venta a un cliente existente es 5-7x menor que adquirir uno nuevo (Bain & Company). Define 1-2 ofertas de upgrade y presentalas en el momento de mayor satisfaccion del cliente.',impPct:0.35},
+     d:'El costo de venta a un cliente existente es 5-7x menor que adquirir uno nuevo (Bain & Company). Define 1-2 ofertas de upgrade y presentalas en el momento de mayor satisfaccion del cliente.',impPct:0.35,
+     tool:'Tu secuencia de email actual o WhatsApp Business — sin costo adicional'},
     // Area 3 - Digitalizacion
     {q:9,sec:3,t:'Adopta herramientas digitales que integren tu operacion',
-     d:'Las PYMEs que adoptan herramientas digitales integradas reportan 20-30% mas productividad y reducen errores en 40% (McKinsey Digital). Evalua un CRM + facturacion + gestion de proyectos en un solo sistema.',impPct:0.45},
+     d:'Las PYMEs que adoptan herramientas digitales integradas reportan 20-30% mas productividad y reducen errores en 40% (McKinsey Digital). Evalua un CRM + facturacion + gestion de proyectos en un solo sistema.',impPct:0.45,
+     tool:'HubSpot Free (clientes) · Notion (operaciones) · Alegra (facturacion) — segun tu dolor'},
     {q:10,sec:3,t:'Automatiza tu comunicacion con clientes',
-     d:'Las empresas que automatizan comunicacion reducen el tiempo de respuesta en 80% y mejoran la satisfaccion del cliente en 15-25% (McKinsey & Company). Implementa confirmaciones, recordatorios y follow-ups automaticos.',impPct:0.4},
+     d:'Las empresas que automatizan comunicacion reducen el tiempo de respuesta en 80% y mejoran la satisfaccion del cliente en 15-25% (McKinsey & Company). Implementa confirmaciones, recordatorios y follow-ups automaticos.',impPct:0.4,
+     tool:'Brevo o Mailchimp (gratuito) + Calendly para confirmaciones de cita'},
     {q:11,sec:3,t:'Implementa metricas y un dashboard de decisiones',
-     d:'El 67% de las empresas que implementan KPIs y dashboards reportan mejora en decisiones y reduccion de costos (Deloitte). Define 5 metricas clave: ventas, conversion, retencion, margen y costo de adquisicion.',impPct:0.35}
+     d:'El 67% de las empresas que implementan KPIs y dashboards reportan mejora en decisiones y reduccion de costos (Deloitte). Define 5 metricas clave: ventas, conversion, retencion, margen y costo de adquisicion.',impPct:0.35,
+     tool:'Google Sheets con formato condicional — gratuito, 15 min de configuracion'}
   ];
   // Scores individuales por pregunta
   const qScores=questions.map((q,i)=>({
@@ -909,7 +937,14 @@ function buildResults(){
       if(act)chosen.push({...act,qScore:qs.score});
     }
   }
-    document.getElementById('action-plan').innerHTML=chosen.slice(0,3).map((a,i)=>'<div class="action-card"><div class="action-num">'+(i+1)+'</div><div class="action-body"><h4>'+a.t+'</h4><p>'+a.d+'</p><div class="action-impact">+'+fmt(Math.round(lpa[a.sec]*a.impPct))+'/mes &middot; '+fmt(Math.round(lpa[a.sec]*a.impPct*3))+' en 6 meses (ahorro en eficiencia)</div></div></div>').join('');
+    document.getElementById('action-plan').innerHTML=chosen.slice(0,3).map((a,i)=>'<div class="action-card"><div class="action-num">'+(i+1)+'</div><div class="action-body"><h4>'+a.t+'</h4><p>'+a.d+'</p><div class="action-impact">+'+fmt(Math.round(lpa[a.sec]*a.impPct))+'/mes &middot; '+fmt(Math.round(lpa[a.sec]*a.impPct*3))+' en 6 meses (ahorro en eficiencia)</div>'+(a.tool?'<div class="action-tool"><strong>Herramienta recomendada:</strong> '+a.tool+'</div>':'')+'</div></div>').join('');
+    // DESGLOSE DE POTENCIAL POR AREA
+    const lpa6m=lpa.map(l=>Math.round(l*3));
+    const maxLpa=Math.max(...lpa6m)||1;
+    const areaBreakEl=document.getElementById('area-breakdown');
+    areaBreakEl.style.display='block';
+    areaBreakEl.innerHTML='<h4>Distribucion de tu potencial de mejora — 6 meses</h4>'+sections.map((sec,i)=>'<div class="breakdown-row"><div class="breakdown-label">'+sec.icon+' '+sec.label.split(' ')[0]+'</div><div class="breakdown-track"><div class="breakdown-fill" style="background:'+sec.color+'" data-w="'+(lpa6m[i]/maxLpa*100).toFixed(0)+'%"></div></div><div class="breakdown-value">'+fmt(lpa6m[i])+'</div></div>').join('');
+    setTimeout(()=>{areaBreakEl.querySelectorAll('.breakdown-fill').forEach(el=>{el.style.width=el.dataset.w;});},150);
 
   // DIAGNOSTICO POR INDUSTRIA
   if(!freeMode){
@@ -1016,18 +1051,33 @@ function buildResults(){
       {t:'Activa la rutina de revision semanal y toma de decisiones basadas en los datos',s:['15 minutos cada lunes: actualiza las metricas de la semana anterior con datos reales — sin esperar al fin de mes','30 minutos el primer dia del mes: analiza tendencias, identifica la metrica mas critica y define UNA accion de mejora concreta','Regla de decision: si una metrica cae 2 meses consecutivos debajo de meta, activa revision estrategica de inmediato']}
     ]}
   };
-  // La hoja de ruta deriva directamente de las 3 acciones priorizadas
-  const safeChosen=chosen.length>=3?chosen:chosen.concat(chosen).slice(0,3);
+  // Orden logico de dependencias: 1=base, 2=implementacion, 3=optimizacion
+  const seqOrder={0:2,1:1,2:3,3:2,4:1,5:3,6:3,7:1,8:3,9:1,10:2,11:1};
+  // Reordenar segun dependencias logicas (no por score)
+  const roadmapOrder=[...chosen].sort((a,b)=>{
+    const d=seqOrder[a.q]-seqOrder[b.q];
+    return d!==0?d:a.qScore-b.qScore;
+  });
+  const sR=roadmapOrder.length>=3?roadmapOrder:roadmapOrder.concat(roadmapOrder).slice(0,3);
+  const phaseLabels=['FUNDACION','IMPLEMENTACION','OPTIMIZACION Y ESCALA'];
   const rm=[
-    {cls:'phase-mes1',label:'MES 1 - SEMANAS 1 A 4',title:'Accion 1: '+safeChosen[0].t,
-     tasks:roadmapByAction[safeChosen[0].q].tasks},
-    {cls:'phase-mes2',label:'MES 2 - SEMANAS 5 A 8',title:'Accion 2: '+safeChosen[1].t,
-     tasks:roadmapByAction[safeChosen[1].q].tasks},
-    {cls:'phase-mes3',label:'MES 3 - SEMANAS 9 A 12',title:'Accion 3: '+safeChosen[2].t,
-     tasks:roadmapByAction[safeChosen[2].q].tasks}
+    {cls:'phase-mes1',label:'MES 1 — SEMANAS 1 A 4',title:phaseLabels[0]+': '+sR[0].t,
+     tasks:roadmapByAction[sR[0].q].tasks},
+    {cls:'phase-mes2',label:'MES 2 — SEMANAS 5 A 8',title:phaseLabels[1]+': '+sR[1].t,
+     tasks:roadmapByAction[sR[1].q].tasks},
+    {cls:'phase-mes3',label:'MES 3 — SEMANAS 9 A 12',title:phaseLabels[2]+': '+sR[2].t,
+     tasks:roadmapByAction[sR[2].q].tasks}
   ];
   const renderTask=t=>'<div class="roadmap-task"><div class="roadmap-task-title">'+t.t+'</div><div class="roadmap-steps">'+t.s.map(s=>'<div class="roadmap-step">'+s+'</div>').join('')+'</div></div>';
   document.getElementById('roadmap-phases').innerHTML=rm.map(p=>'<div class="roadmap-phase '+p.cls+'"><div class="roadmap-phase-label">'+p.label+'</div><div class="roadmap-phase-title">'+p.title+'</div>'+p.tasks.map(renderTask).join('')+'</div>').join('');
+  // QUICK WINS — primera accion concreta de cada mes (solo modo pago)
+  if(!freeMode){
+    const qwEl=document.getElementById('quick-wins');
+    if(qwEl){
+      const qwItems=sR.slice(0,3).map((a,i)=>roadmapByAction[a.q].tasks[0].s[0]);
+      qwEl.innerHTML='<div class="quick-wins-box"><h4>⚡ ESTA SEMANA — Arranca antes de que termine el dia</h4>'+qwItems.map((w,i)=>'<div class="quick-win-item"><span class="quick-win-bullet">'+(i+1)+'.</span> '+w+'</div>').join('')+'</div>';
+    }
+  }
 
   // ROI
   if(freeMode){
