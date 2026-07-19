@@ -703,13 +703,17 @@ function saveLeadAndPay(){
   const name=document.getElementById('input-name').value||'Empresario';
   const email=document.getElementById('input-email').value.trim();
   const state={a:answers,r:selectedRevenue,c:selectedClients,cur:selectedCurrency.code,n:name,email:email,bt:selectedBusinessType};
-  try{localStorage.setItem('diagState',JSON.stringify(state));}catch(e){}
+  try{
+    localStorage.setItem('diagState',JSON.stringify(state));
+    localStorage.setItem('diagStatePaid',JSON.stringify(state));
+  }catch(e){}
   window.open(HOTMART_URL,'_blank');
 }
 function registerToBrevo(e,s,f,p){fetch('https://api.brevo.com/v3/contacts',{method:'POST',headers:{'accept':'application/json','content-type':'application/json','api-key':['xkeysib-0a3c0ef2c2bf13557eea300e84344c21f7d47f9acdd86eab','9476280f627f4fcf-SWdvChYU0CWpc8yC'].join('')},body:JSON.stringify({email:e,attributes:{SCORE:String(s),FASE:f,PERDIDA_MENSUAL:String(Math.round(p))},listIds:[3],updateEnabled:true})}).catch(function(){});}
 function showResults(isFree){
   if(!validateEmail()) return;
-  freeMode=(isFree===true);
+  let pendingPaid=false;try{pendingPaid=localStorage.getItem('radarIsPaid')==='1'||localStorage.getItem('radarPendingPaid')==='1';}catch(e){}
+  freeMode=pendingPaid?false:(isFree===true);
   userName=document.getElementById('input-name').value||'Empresario';
   const _e=document.getElementById('input-email').value.trim(),_r=computeResults(),_f=_r.overall>=80?'FASE ELITE':_r.overall>=60?'FASE CRECIMIENTO':_r.overall>=40?'FASE ESTABILIZACION':'FASE CRITICA';registerToBrevo(_e,_r.overall,_f,_r.total);
   trackEvent('results_viewed',{tipo:isFree?'free':'paid',score:_r.overall,fase:_f});
@@ -1020,9 +1024,14 @@ function buildResults(){
 renderRevenueOptions();
 (function(){
   const urlP=new URLSearchParams(window.location.search);
-  if(urlP.get('paid')==='1'){
+  const isPaidURL=urlP.get('paid')==='1';
+  let alreadyPaid=false;
+  try{alreadyPaid=localStorage.getItem('radarIsPaid')==='1';}catch(e){}
+
+  if(isPaidURL||alreadyPaid){
+    try{localStorage.setItem('radarIsPaid','1');}catch(e){}
     let saved=null;
-    try{saved=JSON.parse(localStorage.getItem('diagState'));}catch(e){}
+    try{saved=JSON.parse(localStorage.getItem('diagStatePaid')||localStorage.getItem('diagState'));}catch(e){}
     if(saved&&saved.a){
       selectedRevenue=saved.r||3000;
       selectedClients=saved.c||13;
@@ -1032,30 +1041,23 @@ renderRevenueOptions();
       const savedEmail=saved.email||'';
       freeMode=false;
       answers=saved.a;
-      try{localStorage.removeItem('diagState');}catch(e){}
+      try{localStorage.setItem('diagStatePaid',JSON.stringify(saved));localStorage.removeItem('diagState');}catch(e){}
       history.replaceState({},'',window.location.pathname);
-  if(urlP.get('buy')==='1'){
-    setTimeout(function(){
-      const b=document.createElement('div');
-      b.style.cssText='position:fixed;top:0;left:0;right:0;background:#2A7DD4;color:#fff;text-align:center;padding:14px 20px;font-size:14px;font-weight:500;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2)';
-      b.innerHTML='Completa el diagn�stico (5 min) � ve tu score gratis � desbloquea el reporte completo por $37 USD';
-      document.body.prepend(b);
-    },400);
-  }
       show('screen-results');
       document.getElementById('progress-bar').style.width='100%';
       buildResults();
-      if(savedEmail){const paidURL=generateShareURL();sendDiagnosticEmail(paidURL,savedEmail,true);}
+      if(savedEmail&&isPaidURL){const paidURL=generateShareURL();sendDiagnosticEmail(paidURL,savedEmail,true);}
     } else {
       document.getElementById('screen-intro').classList.add('active');
-      try{localStorage.setItem('radarPendingPaid','1');}catch(e){}
       setTimeout(function(){
         const b=document.createElement('div');
         b.style.cssText='position:fixed;top:0;left:0;right:0;background:#27AE7A;color:#fff;text-align:center;padding:14px 20px;font-size:14px;font-weight:500;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2)';
-        b.textContent=' Pago recibido. Completa el diagn�stico para generar tu reporte completo.';
+        b.textContent='✅ Pago confirmado. Completa el diagnóstico y verás tu reporte completo desbloqueado al final.';
         document.body.prepend(b);
       },400);
     }
+  } else if(urlP.get('buy')==='1'){
+    if(!loadFromURL()) document.getElementById('screen-intro').classList.add('active');
   } else if(!loadFromURL()){
     document.getElementById('screen-intro').classList.add('active');
   }
