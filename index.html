@@ -728,6 +728,7 @@ function computeResults(){
 }
 
 function showEmailGate(){
+  trackEvent('quiz_complete',{tipo:'all_questions_answered'});
   const{total}=computeResults();
   document.getElementById('teaser-loss').textContent=fmt(Math.round(total*3));
   // Update price display to selected currency equivalent
