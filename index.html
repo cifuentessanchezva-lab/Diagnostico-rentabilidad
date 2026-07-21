@@ -106,7 +106,7 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
 .btn-pdf{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--green);padding:10px 18px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;}
 .btn-pdf:hover{background:rgba(16,185,129,.22);}
 @media print{
-  #progress-bar-wrap,#screen-intro,#screen-context,#screen-question,#screen-email,.share-box,.cta-section,.btn-primary,.btn-secondary,.locked-overlay{display:none!important;}
+  #progress-bar-wrap,#screen-intro,#screen-context,#screen-question,#screen-teaser,#screen-email,.share-box,.cta-section,.btn-primary,.btn-secondary,.locked-overlay{display:none!important;}
   #screen-results{display:block!important;padding:20px!important;background:white!important;color:#111!important;}
   #screen-results .container{max-width:100%!important;}
   body{background:white!important;color:#111!important;}
@@ -378,47 +378,71 @@ h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-
   </div>
 </div>
 
+<!-- PANTALLA TRANSICION -->
+<div id="screen-teaser" class="screen">
+  <div class="container" style="max-width:480px;text-align:center">
+    <div style="font-size:3rem;margin-bottom:20px">&#128200;</div>
+    <h2 style="margin-bottom:12px">Analizando tu negocio...</h2>
+    <p style="color:var(--muted);margin-bottom:28px">Comparando tus respuestas con benchmarks de McKinsey, Bain y Deloitte para tu sector</p>
+    <div style="background:var(--card);border-radius:12px;padding:20px;margin-bottom:20px">
+      <div style="display:flex;flex-direction:column;gap:12px" id="teaser-areas"></div>
+    </div>
+    <p style="color:var(--muted);font-size:.85rem">Tu diagnostico completo se genera automaticamente...</p>
+  </div>
+</div>
+
 <!-- EMAIL GATE -->
 <div id="screen-email" class="screen">
   <div class="container" style="max-width:520px">
     <div class="email-card">
-      <div style="font-size:2.5rem;margin-bottom:16px">=
-</div>
-      <h2>Tu diagnostico esta listo</h2>
-      <p style="color:var(--muted);margin-bottom:8px">Calculado sobre tu facturacion declarada. Potencial de recuperacion mensual:</p>
+      <div style="font-size:2.5rem;margin-bottom:12px">&#127775;</div>
+      <h2 style="margin-bottom:6px">Tu diagnostico esta listo</h2>
+      <p style="color:var(--muted);margin-bottom:8px;font-size:.9rem">Identificamos un potencial de recuperacion mensual de:</p>
       <div class="teaser-number" id="teaser-loss">---</div>
-      <div class="teaser-label">potencial de recuperación en 6 meses</div>
-      <p style="margin:20px 0 6px;color:var(--muted);font-size:.9rem">Ingresa tu nombre y email para ver tu puntaje por area de forma gratuita.</p>
-      <div class="input-group">
-        <input class="input-field" type="text" id="input-name" placeholder="Tu nombre" />
-        <input class="input-field" type="email" id="input-email" placeholder="Tu email de trabajo *" />
-        <div class="email-error" id="email-error">Por favor ingresa un email valido para continuar.</div>
-        <input class="input-field" type="text" id="input-company" placeholder="Nombre de tu empresa (opcional)" />
+      <div class="teaser-label" style="margin-bottom:24px">en los proximos 6 meses</div>
+
+      <!-- CAMINO PRINCIPAL: GRATIS -->
+      <div style="background:rgba(16,185,129,.07);border:1.5px solid rgba(16,185,129,.3);border-radius:16px;padding:20px;margin-bottom:16px">
+        <div style="font-size:.72rem;font-weight:700;color:#10b981;letter-spacing:.08em;margin-bottom:8px">DIAGNOSTICO GRATUITO</div>
+        <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px;line-height:1.5">Ingresa tus datos para ver tu puntaje por area y las oportunidades de mejora detectadas</p>
+        <div class="input-group" style="margin-bottom:12px">
+          <input class="input-field" type="text" id="input-name" placeholder="Tu nombre" />
+          <input class="input-field" type="email" id="input-email" placeholder="Tu email *" />
+          <div class="email-error" id="email-error">Por favor ingresa un email valido para continuar.</div>
+          <input class="input-field" type="text" id="input-company" placeholder="Empresa (opcional)" />
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;background:linear-gradient(135deg,#059669,#10b981)" onclick="trackEvent('quiz_complete',{tipo:'free'});showResults(true)">Ver mi diagnostico gratuito &#8594;</button>
       </div>
+
+      <!-- SEPARADOR -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+        <span style="font-size:.78rem;color:var(--muted)">o si quieres el plan completo</span>
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+      </div>
+
       <!-- OPCION PAGO -->
-      <div style="background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(99,102,241,.12));border:1px solid rgba(99,102,241,.35);border-radius:16px;padding:22px;margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <div style="font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.08em;">INFORME COMPLETO</div>
-          <div style="font-size:.7rem;font-weight:700;background:rgba(245,158,11,.15);color:var(--gold);padding:3px 10px;border-radius:100px;letter-spacing:.05em;">PRECIO LANZAMIENTO</div>
+      <div style="background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(99,102,241,.08));border:1px solid rgba(99,102,241,.25);border-radius:14px;padding:18px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.08em">INFORME COMPLETO</div>
+          <div style="font-size:.68rem;font-weight:700;background:rgba(245,158,11,.15);color:var(--gold);padding:3px 8px;border-radius:100px">PRECIO LANZAMIENTO</div>
         </div>
-        <div style="font-size:.85rem;color:var(--muted);margin-bottom:14px;line-height:1.6;">Lo que un consultor cobra por una sola sesion de diagnostico &mdash; entregado de forma inmediata, con tus numeros reales y benchmarks de McKinsey, Bain y Deloitte.</div>
-        <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:6px;">
-          <div style="font-size:2rem;font-weight:900;color:var(--text)" id="price-display">$37 USD</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px">
+          <div style="font-size:1.7rem;font-weight:900;color:var(--text)" id="price-display">$37 USD</div>
+          <span style="font-size:.78rem;color:var(--muted)">&middot; pago unico &middot; acceso inmediato</span>
         </div>
-        <div style="font-size:.75rem;color:var(--muted);margin-bottom:16px;">Acceso inmediato &middot; Pago unico &middot; Sin suscripcion</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;font-size:.78rem;color:var(--muted);">
-          <div>&#10003; Potencial de recuperacion por area</div>
-          <div>&#10003; Plan de 3 acciones priorizadas</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:12px;font-size:.75rem;color:var(--muted)">
+          <div>&#10003; Plan de acciones priorizadas</div>
           <div>&#10003; Hoja de ruta 90 dias</div>
           <div>&#10003; Proyeccion ROI a 6 meses</div>
+          <div>&#10003; Benchmarks por sector</div>
         </div>
         <a id="hotmart-link" onclick="trackEvent('report_purchase_click')" href="https://pay.hotmart.com/J106755421R" target="_blank" style="text-decoration:none;display:block">
-          <button class="btn-primary" style="width:100%;justify-content:center;" onclick="saveLeadAndPay()">Acceder al informe completo &rarr; $37 USD</button>
+          <button class="btn-primary" style="width:100%;justify-content:center;" onclick="saveLeadAndPay()">Acceder al informe completo &#8594; <span id="price-btn">$37 USD</span></button>
         </a>
-        <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:10px;">&#128274; Pago seguro via Hotmart &middot; <strong style="color:var(--text)">Garantia de 7 dias</strong> &mdash; si no encuentras valor, te devolvemos el dinero sin preguntas</div>
+        <div style="font-size:.7rem;color:var(--muted);text-align:center;margin-top:8px">&#128274; Pago seguro via Hotmart &middot; <strong style="color:var(--text)">Garantia 7 dias</strong></div>
       </div>
-      <!-- OPCION GRATIS -->
-      <button class="btn-secondary" style="width:100%;justify-content:center;margin-bottom:8px" onclick="trackEvent('quiz_complete',{tipo:'free'});showResults(true)">Ver solo mi puntaje por area (gratis)</button>
+
       <div class="privacy">Tu informacion esta segura. No enviamos spam.</div>
     </div>
   </div>
@@ -730,16 +754,34 @@ function computeResults(){
 
 function showEmailGate(){
   trackEvent('quiz_complete',{tipo:'all_questions_answered'});
-  const{total}=computeResults();
-  document.getElementById('teaser-loss').textContent=fmt(Math.round(total*3));
-  // Update price display to selected currency equivalent
-  const priceUSD=37;
-  const priceLocal=Math.round(priceUSD*selectedCurrency.rate);
-  const priceStr=selectedCurrency.code==='USD'?'$37 USD':selectedCurrency.symbol+priceLocal.toLocaleString('es-CO')+' '+selectedCurrency.code;
-  document.getElementById('price-display').textContent=priceStr;
-  show('screen-email');
-  trackEvent('email_screen_shown');
-  document.getElementById('progress-bar').style.width='92%';
+  const{total,sc}=computeResults();
+  // Build teaser areas
+  const areaNames=['Finanzas','Operaciones','Clientes','Automatizacion'];
+  const areaIcons=['💰','⚙️','🤝','🚀'];
+  const teaserEl=document.getElementById('teaser-areas');
+  if(teaserEl){
+    teaserEl.innerHTML=areaNames.map((n,i)=>{
+      const s=sc[i];
+      const color=s>=70?'#10b981':s>=50?'#f59e0b':'#ef4444';
+      const w=Math.max(4,s);
+      return '<div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.1rem">'+areaIcons[i]+'</span><span style="font-size:.85rem;color:var(--muted);width:110px">'+n+'</span><div style="flex:1;background:var(--border);border-radius:4px;height:8px"><div style="width:'+w+'%;background:'+color+';height:8px;border-radius:4px;transition:width 1s ease"></div></div><span style="font-size:.8rem;font-weight:700;color:'+color+'">'+s+'</span></div>';
+    }).join('');
+  }
+  show('screen-teaser');
+  document.getElementById('progress-bar').style.width='85%';
+  // After 2.2s, transition to email gate
+  setTimeout(()=>{
+    const priceUSD=37;
+    const priceLocal=Math.round(priceUSD*selectedCurrency.rate);
+    const priceStr=selectedCurrency.code==='USD'?'$37 USD':selectedCurrency.symbol+priceLocal.toLocaleString('es-CO')+' '+selectedCurrency.code;
+    document.getElementById('price-display').textContent=priceStr;
+    const priceBtnEl=document.getElementById('price-btn');
+    if(priceBtnEl) priceBtnEl.textContent=priceStr;
+    document.getElementById('teaser-loss').textContent=fmt(Math.round(total*3));
+    show('screen-email');
+    trackEvent('email_screen_shown');
+    document.getElementById('progress-bar').style.width='92%';
+  },2200);
 }
 function validateEmail(){
   const email=document.getElementById('input-email').value.trim();
